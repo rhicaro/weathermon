@@ -24,6 +24,7 @@ public class Day1 extends javax.swing.JPanel {
     private WeatherObject weatherObj;
     private DefaultListModel model;
     private Random rand;
+    private int index;
     
     private ArrayList<String> pokemonNameList;
     private String type1;
@@ -44,10 +45,13 @@ public class Day1 extends javax.swing.JPanel {
     /**
      * Creates new form Day1
      */
-    public Day1(Response weatherResponse,String[] pokemonTypes) {
+    public Day1(Response weatherResponse,String[] pokemonTypes, int index) {
         initComponents();
         this.weatherResponse = weatherResponse;
         this.pokemonTypes = pokemonTypes;
+        this.index = index;
+        
+        setWeatherInfo(this.weatherResponse, this.index);
         
         pokemonTypeList = new ArrayList<>();
         pokemonNameResponse = new API_Response_Pokemon();
@@ -61,27 +65,30 @@ public class Day1 extends javax.swing.JPanel {
         pokemonList.setModel(model);
         rand = new Random();
         
-        
-        
+        model.clear();
+        for (PokemonResponseName type: pokemonTypeList){
+            setPokemonList(type, model);
+        }
     }
     
-    public void setWeatherInfo(Response weatherResponse){
-        temperature.setText(df2.format(tempObj.tempCall(weatherResponse, 0)));
-        windspeed.setText(df.format(weatherObj.windCall(weatherResponse, 0)));
-        humidity.setText(df.format(weatherObj.humidityCall(weatherResponse, 0)));
-        currentWeather.setText(weatherObj.weatherCall(weatherResponse, 0));
-        maxTemperature.setText(df.format(tempObj.tempCallHigh(weatherResponse, 0)));
-        minTemperature.setText(df.format(tempObj.tempCallLow(weatherResponse, 0)));
+    public void setWeatherInfo(Response weatherResponse, int index){
+        temperature.setText(df2.format(tempObj.tempCall(weatherResponse, this.index)));
+        windspeed.setText(df.format(weatherObj.windCall(weatherResponse, this.index)));
+        humidity.setText(df.format(weatherObj.humidityCall(weatherResponse, this.index)));
+        currentWeather.setText(weatherObj.weatherCall(weatherResponse, this.index));
+        maxTemperature.setText(df.format(tempObj.tempCallHigh(weatherResponse, this.index)));
+        minTemperature.setText(df.format(tempObj.tempCallLow(weatherResponse, this.index)));
         city.setText(cityObj.cityCall(weatherResponse));
         country.setText(cityObj.countryCall(weatherResponse));
     }
     
-    public void setPokemonInfo(ArrayList<PokemonResponseName> pokemonTypeList, DefaultListModel model){
-        int numberOfPokemon = pokemonResponse.getPokemonList().length;
-        int randomIndex = rand.nextInt(numberOfPokemon);
-        
-        pokemonNameList.add(pokemonResponse.getPokemonList()[randomIndex].getPokemon().getPokemonName());
-        
+    public void setPokemonList(PokemonResponseName pokemonNameResp, DefaultListModel model){
+        int numberOfPokemon = pokemonNameResp.getPokemonList().length;
+        for (int i=0; i<3; i++){
+            int randomIndex = rand.nextInt(numberOfPokemon);
+            pokemonNameList.add(pokemonNameResp.getPokemonList()[randomIndex].
+                    getPokemon().getPokemonName());
+        }
         model.addAll(pokemonNameList);
     }
 
@@ -320,7 +327,6 @@ public class Day1 extends javax.swing.JPanel {
                         .addGap(28, 28, 28))))
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel city;

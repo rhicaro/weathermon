@@ -29,8 +29,7 @@ public class Pokeframe extends javax.swing.JFrame {
         cityform = new CityForm();
         cityform.setSize(400,400);
         descriptionPanel.add(cityform);
-        
-//        changeState(stateNumber);
+        changeState(stateNumber);
     }
     
     @SuppressWarnings("unchecked")
@@ -87,14 +86,14 @@ public class Pokeframe extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, windowDisplayInfoLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(windowNameDisplay)
-                .addGap(57, 57, 57))
+                .addContainerGap())
         );
         windowDisplayInfoLayout.setVerticalGroup(
             windowDisplayInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, windowDisplayInfoLayout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addComponent(windowNameDisplay)
-                .addGap(29, 29, 29))
+                .addGap(35, 35, 35))
         );
 
         jButton1.setText("Enter");
@@ -190,7 +189,7 @@ public class Pokeframe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void return2LastPanelBtn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_return2LastPanelBtn
-        if (stateNumber == 0){
+        if (stateNumber == 1){
             stateNumber -= 0;
         } else {
             stateNumber -= 1;
@@ -210,16 +209,26 @@ public class Pokeframe extends javax.swing.JFrame {
     private void enterBtn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterBtn
         if (stateNumber == 0){
             String cityName = cityform.getCityName();
-            Location cityNameList = weatherResponseObject.getLocationResp(cityName)[0];
-            double cityLat = cityNameList.getLat();
-            double cityLon = cityNameList.getLon();
-            Response weatherResp = weatherResponseObject.getResponse(cityLat, cityLon);
+            System.out.println(cityName);
+            Location cityNameObj = weatherResponseObject.getLocationResp(cityName)[0];
+            System.out.println(cityNameObj);
+            double cityLat = cityNameObj.getLat();
+            double cityLon = cityNameObj.getLon();
+            System.out.println(cityLat + ":" + cityLon);
+            Response weatherResp = weatherResponseObject.getResponse(cityLat, cityLon);//Transfer
             String weatherType = weatherResp.getList()[0].getWeather()[0].getDescription();
-            String[] pokemonTypes = checkPokemonType(weatherType).split(",");
+            System.out.println(weatherType);
+            String[] pokemonTypes = checkPokemonType(weatherType).split(",");//Transfer
+            
+            day1 = new Day1(weatherResp, pokemonTypes, 0);
+            day1.setSize(400, 400);
+            descriptionPanel.add(day1);
+            stateNumber += 1;
+            changeState(stateNumber);
             }
         
-//        day1 = new Day1();
-//        day2 = new Day2();
+        
+        day2 = new Day2();
 //        day3 = new Day3();
 //        day4 = new Day4();
 //        day5 = new Day5();
