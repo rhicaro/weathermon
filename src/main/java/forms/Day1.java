@@ -31,7 +31,7 @@ public class Day1 extends javax.swing.JPanel {
     private WeatherObject weatherObj;
     private DefaultListModel model;
     private Random rand;
-    URL url;
+    private URL url;
 
     
     private ArrayList<String> pokemonNameList;

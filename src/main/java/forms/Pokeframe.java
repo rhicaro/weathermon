@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class Pokeframe extends javax.swing.JFrame {
-    private int stateNumber;
+    public int stateNumber;
     private Response weatherResponse;
     private PokemonResponseName pokeNameResponse;
     private String[] pokemonTypes;
@@ -48,7 +48,7 @@ public class Pokeframe extends javax.swing.JFrame {
         day3.setPokeframe(this);
         day4.setPokeframe(this);
         day5.setPokeframe(this);
-//        pokemonlist.setPokeframe(this);
+        pokemonlist.setPokeframe(this);
 //        pokedex.setPokeframe(this);
 
         cityform.setSize(400,400);
@@ -57,7 +57,7 @@ public class Pokeframe extends javax.swing.JFrame {
         day3.setSize(400,400);
         day4.setSize(400,400);
         day5.setSize(400,400);
-//        pokemonlist.setSize(400,400);
+        pokemonlist.setSize(400,400);
 //        pokedex.setSize(400,400);
         
         descriptionPanel.add(cityform);
@@ -66,7 +66,7 @@ public class Pokeframe extends javax.swing.JFrame {
         descriptionPanel.add(day3);
         descriptionPanel.add(day4);
         descriptionPanel.add(day5);
-//        descriptionPanel.add(pokemonlist);
+        descriptionPanel.add(pokemonlist);
 //        descriptionPanel.add(pokedex);
 
         changeState(stateNumber);
@@ -93,9 +93,9 @@ public class Pokeframe extends javax.swing.JFrame {
         userPanel = new javax.swing.JPanel();
         windowDisplayInfo = new javax.swing.JPanel();
         windowNameDisplay = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        enterBtn = new javax.swing.JButton();
+        nextBtn = new javax.swing.JButton();
+        returnBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -148,22 +148,22 @@ public class Pokeframe extends javax.swing.JFrame {
                 .addGap(35, 35, 35))
         );
 
-        jButton1.setText("Enter");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        enterBtn.setText("Enter");
+        enterBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterBtn(evt);
             }
         });
 
-        jButton2.setText("Next");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        nextBtn.setText("Next");
+        nextBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nextPanelBtn(evt);
             }
         });
 
-        jButton3.setText("Return");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        returnBtn.setText("Return");
+        returnBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 return2LastPanelBtn(evt);
             }
@@ -178,9 +178,9 @@ public class Pokeframe extends javax.swing.JFrame {
                 .addComponent(windowDisplayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(enterBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                    .addComponent(nextBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(returnBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         userPanelLayout.setVerticalGroup(
@@ -190,11 +190,11 @@ public class Pokeframe extends javax.swing.JFrame {
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(userPanelLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButton1)
+                        .addComponent(enterBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(nextBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))
+                        .addComponent(returnBtn))
                     .addComponent(windowDisplayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -241,7 +241,7 @@ public class Pokeframe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void return2LastPanelBtn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_return2LastPanelBtn
-        if (stateNumber == 1){
+        if (stateNumber == 1 || stateNumber == 0){
             stateNumber -= 0;
         } else {
             stateNumber -= 1;
@@ -250,7 +250,7 @@ public class Pokeframe extends javax.swing.JFrame {
     }//GEN-LAST:event_return2LastPanelBtn
 
     private void nextPanelBtn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextPanelBtn
-        if (stateNumber == 7){
+        if (stateNumber == 7 || stateNumber == 6){
             stateNumber += 0;
         } else {
         stateNumber += 1;
@@ -269,12 +269,18 @@ public class Pokeframe extends javax.swing.JFrame {
             pokemonTypes = checkPokemonType(weatherType).split(",");//should now be accessible outside of the frame
             stateNumber += 1;
             changeState(stateNumber);
-            day1.updatePanel(weatherResponse, pokemonTypes);
+            enterBtn.setText("Change Location");
+            day1.updatePanel(weatherResponse, pokemonTypes);//use arrayList
             day2.updatePanel(weatherResponse, pokemonTypes);
             day3.updatePanel(weatherResponse, pokemonTypes);
             day4.updatePanel(weatherResponse, pokemonTypes);
             day5.updatePanel(weatherResponse, pokemonTypes);
-            }
+            pokemonlist.updatePanel(weatherResponse, pokemonTypes);
+        } else if (stateNumber != 0){
+            stateNumber = 0;
+            enterBtn.setText("Enter");
+            changeState(stateNumber);
+        }
     }//GEN-LAST:event_enterBtn
     
     public Response getWeatherResponse(){
@@ -403,10 +409,10 @@ public class Pokeframe extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel descriptionPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton enterBtn;
+    private javax.swing.JButton nextBtn;
     private javax.swing.JPanel pokedexPanel;
+    private javax.swing.JButton returnBtn;
     private javax.swing.JPanel userPanel;
     private javax.swing.JPanel windowDisplayInfo;
     private javax.swing.JLabel windowNameDisplay;

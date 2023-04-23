@@ -70,13 +70,6 @@
                           </Group>
                           <Component id="pokemonListLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="temperatureLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="temperature" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="temperatureType" min="-2" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -117,12 +110,6 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="temperatureLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="temperature" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="temperatureType" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="windLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="windspeed" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="windSpeedType" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -150,7 +137,7 @@
                           <Component id="minTemperature" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="minTemperatureType" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="pokemonListLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="170" max="-2" attributes="0"/>
@@ -174,11 +161,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="temperatureLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Temperature:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="locationLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Current Location:"/>
@@ -187,16 +169,6 @@
     <Component class="javax.swing.JLabel" name="city">
       <Properties>
         <Property name="text" type="java.lang.String" value="City"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="temperature">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="__.__"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="temperatureType">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#xb0;Farenheit"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="windLabel">

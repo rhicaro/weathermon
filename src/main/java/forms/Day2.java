@@ -92,7 +92,6 @@ public class Day2 extends javax.swing.JPanel {
     }
     
     public void setWeatherInfo(Response weatherResponse, int index){
-        temperature.setText(df2.format(tempObj.tempCall(weatherResponse, index)));
         windspeed.setText(df.format(weatherObj.windCall(weatherResponse, index)));
         humidity.setText(df.format(weatherObj.humidityCall(weatherResponse, index)));
         currentWeather.setText(weatherObj.weatherCall(weatherResponse, index));
@@ -140,7 +139,7 @@ public class Day2 extends javax.swing.JPanel {
     }
     
     public void setWeatherImage(Response weatherResponse){ //changes the img based on the current weather
-        String weatherDescription = weatherResponse.getList()[0].getWeather()[0].getDescription();
+        String weatherDescription = weatherResponse.getList()[7].getWeather()[0].getDescription();
         if (weatherDescription.contains("clear") || weatherDescription.contains("sun")){
             weatherSprite.setIcon(new ImageIcon("src/main/resources/sun.png"));
         } else if (weatherDescription.contains("cloud") || weatherDescription.contains("part")){
@@ -161,11 +160,8 @@ public class Day2 extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel21 = new javax.swing.JLabel();
-        temperatureLabel = new javax.swing.JLabel();
         locationLabel = new javax.swing.JLabel();
         city = new javax.swing.JLabel();
-        temperature = new javax.swing.JLabel();
-        temperatureType = new javax.swing.JLabel();
         windLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pokemonList = new javax.swing.JList<>();
@@ -194,15 +190,9 @@ public class Day2 extends javax.swing.JPanel {
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
 
-        temperatureLabel.setText("Temperature:");
-
         locationLabel.setText("Current Location:");
 
         city.setText("City");
-
-        temperature.setText("__.__");
-
-        temperatureType.setText("°Farenheit");
 
         windLabel.setText("Wind Speed:");
 
@@ -304,13 +294,7 @@ public class Day2 extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(percentageLabel))
                             .addComponent(pokemonListLabel)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(temperatureLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(temperature)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(temperatureType)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -342,11 +326,6 @@ public class Day2 extends javax.swing.JPanel {
                             .addComponent(date))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(temperatureLabel)
-                            .addComponent(temperature)
-                            .addComponent(temperatureType))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(windLabel)
                             .addComponent(windspeed)
                             .addComponent(windSpeedType))
@@ -369,7 +348,7 @@ public class Day2 extends javax.swing.JPanel {
                             .addComponent(minTemperatureLabel)
                             .addComponent(minTemperature)
                             .addComponent(minTemperatureType))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(28, 28, 28)
                         .addComponent(pokemonListLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -428,9 +407,6 @@ public class Day2 extends javax.swing.JPanel {
     private javax.swing.JList<String> pokemonList;
     private javax.swing.JLabel pokemonListLabel;
     private javax.swing.JLabel pokemonSprite;
-    private javax.swing.JLabel temperature;
-    private javax.swing.JLabel temperatureLabel;
-    private javax.swing.JLabel temperatureType;
     private javax.swing.JLabel weatherLabel;
     private javax.swing.JLabel weatherSprite;
     private javax.swing.JLabel windLabel;
