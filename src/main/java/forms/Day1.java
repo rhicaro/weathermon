@@ -1,21 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-package forms;
+    package forms;
 
 import api_assets_weather.*;
 import api_assets_pokemon.*;
 import api_response_classes.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import weather_objects.*;
 import pokemon_objects.*;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 
 public class Day1 extends javax.swing.JPanel {
+    private Pokeframe pokeframe;
+    
     private Response weatherResponse;
     private String[] pokemonTypes;
     private TemperatureObject tempObj;
@@ -24,7 +31,8 @@ public class Day1 extends javax.swing.JPanel {
     private WeatherObject weatherObj;
     private DefaultListModel model;
     private Random rand;
-    private int index;
+    URL url;
+
     
     private ArrayList<String> pokemonNameList;
     private String type1;
@@ -45,20 +53,21 @@ public class Day1 extends javax.swing.JPanel {
     /**
      * Creates new form Day1
      */
-    public Day1(Response weatherResponse,String[] pokemonTypes, int index) {
+    public Day1() {
         initComponents();
-        this.weatherResponse = weatherResponse;
-        this.pokemonTypes = pokemonTypes;
-        this.index = index;
-        
-        setWeatherInfo(this.weatherResponse, this.index);
-        
-        pokemonTypeList = new ArrayList<>();
         pokemonNameResponse = new API_Response_Pokemon();
+        tempObj = new TemperatureObject();
+        weatherObj = new WeatherObject();
+        cityObj = new CityObject();
+        dateObj = new DateObject();
+        
+        weatherResponse = null;
+        pokemonTypes = null;
+                
+        pokemonTypeList = new ArrayList<>();
         pokemonNameResponseType1 = new PokemonResponseName();
         pokemonNameResponseType2 = new PokemonResponseName();
         pokemonNameResponseType3 = new PokemonResponseName();
-        setTypes(pokemonTypes, pokemonTypeList); 
         
         model = new DefaultListModel();
         pokemonNameList = new ArrayList<>();
@@ -66,33 +75,48 @@ public class Day1 extends javax.swing.JPanel {
         rand = new Random();
         
         model.clear();
+    }
+    
+    public void setPokeframe(Pokeframe myCreator){
+        pokeframe = myCreator;
+    }
+    
+    public void updatePanel(Response weatherResponse1, String[] pokemonTypes){
+        weatherResponse = weatherResponse1;
+        setWeatherInfo(weatherResponse, 0);
+        setWeatherImage(weatherResponse);
+        pokemonTypeList = setTypes(pokemonTypes, this.pokemonTypeList);
         for (PokemonResponseName type: pokemonTypeList){
             setPokemonList(type, model);
         }
     }
     
     public void setWeatherInfo(Response weatherResponse, int index){
-        temperature.setText(df2.format(tempObj.tempCall(weatherResponse, this.index)));
-        windspeed.setText(df.format(weatherObj.windCall(weatherResponse, this.index)));
-        humidity.setText(df.format(weatherObj.humidityCall(weatherResponse, this.index)));
-        currentWeather.setText(weatherObj.weatherCall(weatherResponse, this.index));
-        maxTemperature.setText(df.format(tempObj.tempCallHigh(weatherResponse, this.index)));
-        minTemperature.setText(df.format(tempObj.tempCallLow(weatherResponse, this.index)));
+        temperature.setText(df2.format(tempObj.tempCall(weatherResponse, index)));
+        windspeed.setText(df.format(weatherObj.windCall(weatherResponse, index)));
+        humidity.setText(df.format(weatherObj.humidityCall(weatherResponse, index)));
+        currentWeather.setText(weatherObj.weatherCall(weatherResponse, index));
+        maxTemperature.setText(df.format(tempObj.tempCallHigh(weatherResponse, index)));
+        minTemperature.setText(df.format(tempObj.tempCallLow(weatherResponse, index)));
         city.setText(cityObj.cityCall(weatherResponse));
         country.setText(cityObj.countryCall(weatherResponse));
+        date.setText(dateObj.dateCall(weatherResponse, index));
+        
     }
     
     public void setPokemonList(PokemonResponseName pokemonNameResp, DefaultListModel model){
         int numberOfPokemon = pokemonNameResp.getPokemonList().length;
-        for (int i=0; i<3; i++){
+        for (int i=0; i<4; i++){
             int randomIndex = rand.nextInt(numberOfPokemon);
-            pokemonNameList.add(pokemonNameResp.getPokemonList()[randomIndex].
-                    getPokemon().getPokemonName());
+            String pokemonName = pokemonNameResp.getPokemonList()[randomIndex].
+                    getPokemon().getPokemonName();
+            pokemonNameList.add(pokemonName);
         }
         model.addAll(pokemonNameList);
+        pokemonNameList.clear();
     }
 
-    public void setTypes(String[] pokemonTypes, ArrayList<PokemonResponseName> pokemonTypeList){
+    public ArrayList<PokemonResponseName> setTypes(String[] pokemonTypes, ArrayList<PokemonResponseName> pokemonTypeList){
         if (pokemonTypes.length == 2){
             type1 = pokemonTypes[0];
             type2 = pokemonTypes[1];
@@ -100,7 +124,7 @@ public class Day1 extends javax.swing.JPanel {
             pokemonNameResponseType2 = pokemonNameResponse.getPokemonResponseName(type2);
             pokemonTypeList.add(pokemonNameResponseType1);
             pokemonTypeList.add(pokemonNameResponseType2);
-
+            return pokemonTypeList;
         } else {
             type1 = pokemonTypes[0];
             type2 = pokemonTypes[1];
@@ -111,6 +135,24 @@ public class Day1 extends javax.swing.JPanel {
             pokemonTypeList.add(pokemonNameResponseType1);
             pokemonTypeList.add(pokemonNameResponseType2);
             pokemonTypeList.add(pokemonNameResponseType3);
+            return pokemonTypeList;
+        }
+    }
+    
+    public void setWeatherImage(Response weatherResponse){ //changes the img based on the current weather
+        String weatherDescription = weatherResponse.getList()[0].getWeather()[0].getDescription();
+        if (weatherDescription.contains("clear") || weatherDescription.contains("sun")){
+            weatherSprite.setIcon(new ImageIcon("src/main/resources/sun.png"));
+        } else if (weatherDescription.contains("cloud") || weatherDescription.contains("part")){
+            weatherSprite.setIcon(new ImageIcon("src/main/resources/cloud.png"));
+        } else if (weatherDescription.contains("rain")){
+            weatherSprite.setIcon(new ImageIcon("src/main/resources/rain.png"));
+        } else if (weatherDescription.contains("wind")){
+            weatherSprite.setIcon(new ImageIcon("src/main/resources/wind.png"));
+        } else if (weatherDescription.contains("thunder") || weatherDescription.contains("storm") || weatherDescription.contains("lightening")){
+            weatherSprite.setIcon(new ImageIcon("src/main/resources/thunder.png"));
+        } else if (weatherDescription.contains("snow")){
+            weatherSprite.setIcon(new ImageIcon("src/main/resources/snow.png"));
         }
     }
     
@@ -144,7 +186,9 @@ public class Day1 extends javax.swing.JPanel {
         minTemperatureType = new javax.swing.JLabel();
         percentageLabel = new javax.swing.JLabel();
         country = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        locationComma = new javax.swing.JLabel();
+        dateLabel = new javax.swing.JLabel();
+        date = new javax.swing.JLabel();
 
         jLabel21.setText("°Farenheit");
 
@@ -162,10 +206,20 @@ public class Day1 extends javax.swing.JPanel {
 
         windLabel.setText("Wind Speed:");
 
+        pokemonList.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
         pokemonList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        pokemonList.setAutoscrolls(false);
+        pokemonList.setMaximumSize(new java.awt.Dimension(170, 170));
+        pokemonList.setMinimumSize(new java.awt.Dimension(170, 170));
+        pokemonList.setPreferredSize(new java.awt.Dimension(170, 170));
+        pokemonList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                pokemonListValueChanged(evt);
+            }
         });
         jScrollPane1.setViewportView(pokemonList);
 
@@ -183,12 +237,12 @@ public class Day1 extends javax.swing.JPanel {
 
         pokemonListLabel.setText("Pokemon Potentially Available:");
 
-        pokemonSprite.setText("Pokemon Sprite");
+        pokemonSprite.setBackground(new java.awt.Color(0, 0, 0));
         pokemonSprite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
-        weatherSprite.setText("weather Img");
         weatherSprite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
         weatherSprite.setMaximumSize(new java.awt.Dimension(100, 100));
+        weatherSprite.setPreferredSize(new java.awt.Dimension(100, 100));
 
         maxTemperatureLabel.setText("Max Temperature:");
 
@@ -206,25 +260,39 @@ public class Day1 extends javax.swing.JPanel {
 
         country.setText("Country");
 
-        jLabel2.setText(",");
+        locationComma.setText(",");
+
+        dateLabel.setText("Date:");
+
+        date.setText("__/__/____");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(maxTemperatureLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(maxTemperature)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(maxTemperatureType))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(minTemperatureLabel)
+                                .addGap(8, 8, 8)
+                                .addComponent(minTemperature)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(minTemperatureType))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(windLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(windspeed)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(windSpeedType))
-                            .addComponent(pokemonListLabel)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(weatherLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -235,59 +303,49 @@ public class Day1 extends javax.swing.JPanel {
                                 .addComponent(humidity)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(percentageLabel))
+                            .addComponent(pokemonListLabel)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(temperatureLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(temperature)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(temperatureType)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(locationLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(city)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(country)))
-                        .addGap(0, 2, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(minTemperatureLabel)
-                                .addGap(8, 8, 8)
-                                .addComponent(minTemperature)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(minTemperatureType))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(maxTemperatureLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(maxTemperature)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(maxTemperatureType)))
-                        .addGap(25, 25, 25)))
-                .addGap(6, 6, 6))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(dateLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(date)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(locationLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(city)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(locationComma)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(country)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(temperatureLabel)
-                    .addComponent(locationLabel)
-                    .addComponent(city)
-                    .addComponent(temperature)
-                    .addComponent(temperatureType)
-                    .addComponent(jLabel2)
-                    .addComponent(country))
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dateLabel)
+                            .addComponent(date))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(temperatureLabel)
+                            .addComponent(temperature)
+                            .addComponent(temperatureType))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(windLabel)
                             .addComponent(windspeed)
@@ -302,19 +360,6 @@ public class Day1 extends javax.swing.JPanel {
                             .addComponent(weatherLabel)
                             .addComponent(currentWeather))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pokemonListLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(maxTemperatureLabel)
                             .addComponent(maxTemperature)
@@ -324,19 +369,54 @@ public class Day1 extends javax.swing.JPanel {
                             .addComponent(minTemperatureLabel)
                             .addComponent(minTemperature)
                             .addComponent(minTemperatureType))
-                        .addGap(28, 28, 28))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pokemonListLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(locationLabel)
+                            .addComponent(city)
+                            .addComponent(locationComma)
+                            .addComponent(country))
+                        .addGap(18, 18, 18)
+                        .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void pokemonListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pokemonListValueChanged
+        String currentPokemon = pokemonList.getSelectedValue();
+        String pokemonURL = pokemonNameResponse.getPokemonResponseGeneral(currentPokemon).getSprite().getImageURL();
+        if (pokemonURL == null){
+            pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
+        } else {
+            try {
+                url = new URL(pokemonURL);
+                BufferedImage image = ImageIO.read(url);
+                ImageIcon icon = new ImageIcon(image);
+                pokemonSprite.setIcon(icon);
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(Day1.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Day1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_pokemonListValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel city;
     private javax.swing.JLabel country;
     private javax.swing.JLabel currentWeather;
+    private javax.swing.JLabel date;
+    private javax.swing.JLabel dateLabel;
     private javax.swing.JLabel humidity;
     private javax.swing.JLabel humidtyLabel;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel locationComma;
     private javax.swing.JLabel locationLabel;
     private javax.swing.JLabel maxTemperature;
     private javax.swing.JLabel maxTemperatureLabel;

@@ -1,5 +1,6 @@
 package forms;
 
+import api_assets_pokemon.*;
 import api_assets_weather.*;
 import api_response_classes.*;
 import java.util.ArrayList;
@@ -7,6 +8,10 @@ import javax.swing.JPanel;
 
 public class Pokeframe extends javax.swing.JFrame {
     private int stateNumber;
+    private Response weatherResponse;
+    private PokemonResponseName pokeNameResponse;
+    private String[] pokemonTypes;
+    
     private API_Response_Weather weatherResponseObject;
     private API_Response_Pokemon pokemonResponseObject;
     private CityForm cityform;
@@ -17,19 +22,66 @@ public class Pokeframe extends javax.swing.JFrame {
     private Day5 day5;
     private PokemonList pokemonlist;
     private Pokedex pokedex;
-    private ArrayList<? extends JPanel> JPanelList;
+    private ArrayList<JPanel> JPanelList;
+    
+    private Test1 test1;
     
     public Pokeframe() {
         initComponents();
         stateNumber = 0;
-        JPanelList = new ArrayList<>(); 
-        weatherResponseObject = new API_Response_Weather();
-        pokemonResponseObject = new API_Response_Pokemon();
+        weatherResponse = null;
+        pokeNameResponse = null;
+        pokemonTypes = null;
         
         cityform = new CityForm();
+        day1 = new Day1();
+        day2 = new Day2();
+        day3 = new Day3();
+        day4 = new Day4();
+        day5 = new Day5();
+        pokemonlist = new PokemonList();
+        pokedex = new Pokedex();
+        
+        cityform.setPokeframe(this);
+        day1.setPokeframe(this);
+        day2.setPokeframe(this);
+        day3.setPokeframe(this);
+        day4.setPokeframe(this);
+        day5.setPokeframe(this);
+//        pokemonlist.setPokeframe(this);
+//        pokedex.setPokeframe(this);
+
         cityform.setSize(400,400);
+        day1.setSize(400,400);
+        day2.setSize(400,400);
+        day3.setSize(400,400);
+        day4.setSize(400,400);
+        day5.setSize(400,400);
+//        pokemonlist.setSize(400,400);
+//        pokedex.setSize(400,400);
+        
         descriptionPanel.add(cityform);
+        descriptionPanel.add(day1);
+        descriptionPanel.add(day2);
+        descriptionPanel.add(day3);
+        descriptionPanel.add(day4);
+        descriptionPanel.add(day5);
+//        descriptionPanel.add(pokemonlist);
+//        descriptionPanel.add(pokedex);
+
         changeState(stateNumber);
+        
+        JPanelList = new ArrayList<>(); 
+        JPanelList.add(day1);
+        JPanelList.add(day2);
+        JPanelList.add(day3);
+        JPanelList.add(day4);
+        JPanelList.add(day5);
+        JPanelList.add(pokemonlist);
+        JPanelList.add(pokedex);
+
+        weatherResponseObject = new API_Response_Weather();
+        pokemonResponseObject = new API_Response_Pokemon();
     }
     
     @SuppressWarnings("unchecked")
@@ -209,33 +261,33 @@ public class Pokeframe extends javax.swing.JFrame {
     private void enterBtn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterBtn
         if (stateNumber == 0){
             String cityName = cityform.getCityName();
-            System.out.println(cityName);
             Location cityNameObj = weatherResponseObject.getLocationResp(cityName)[0];
-            System.out.println(cityNameObj);
             double cityLat = cityNameObj.getLat();
             double cityLon = cityNameObj.getLon();
-            System.out.println(cityLat + ":" + cityLon);
-            Response weatherResp = weatherResponseObject.getResponse(cityLat, cityLon);//Transfer
-            String weatherType = weatherResp.getList()[0].getWeather()[0].getDescription();
-            System.out.println(weatherType);
-            String[] pokemonTypes = checkPokemonType(weatherType).split(",");//Transfer
-            
-            day1 = new Day1(weatherResp, pokemonTypes, 0);
-            day1.setSize(400, 400);
-            descriptionPanel.add(day1);
+            weatherResponse = weatherResponseObject.getResponse(cityLat, cityLon); //should now be accessible outside of the frame
+            String weatherType = weatherResponse.getList()[0].getWeather()[0].getDescription();
+            pokemonTypes = checkPokemonType(weatherType).split(",");//should now be accessible outside of the frame
             stateNumber += 1;
             changeState(stateNumber);
+            day1.updatePanel(weatherResponse, pokemonTypes);
+            day2.updatePanel(weatherResponse, pokemonTypes);
+            day3.updatePanel(weatherResponse, pokemonTypes);
+            day4.updatePanel(weatherResponse, pokemonTypes);
+            day5.updatePanel(weatherResponse, pokemonTypes);
             }
-        
-        
-        day2 = new Day2();
-//        day3 = new Day3();
-//        day4 = new Day4();
-//        day5 = new Day5();
-//        pokemonlist = new PokemonList();
-//        pokedex = new Pokedex();
-        
     }//GEN-LAST:event_enterBtn
+    
+    public Response getWeatherResponse(){
+        return this.weatherResponse;
+    }
+    
+    public String[] getPokemonTypes(){
+        return this.pokemonTypes;
+    }
+    
+    public PokemonResponseName getPokemonNameResponse(){
+        return this.pokeNameResponse;
+    }
     
     //Have to move this somewhere else
     public void changeState(int stateNumber){
@@ -279,6 +331,17 @@ public class Pokeframe extends javax.swing.JFrame {
         if (stateNumber == 7){
             windowNameDisplay.setText("Pokédex");
             pokedex.setVisible(true);
+        }
+    }
+    
+    //Have to move this somewhere else
+    public void changeState2(int stateNumber){
+        cityform.setVisible(false);
+        test1.setVisible(false);
+        if (stateNumber == 0){
+            cityform.setVisible(true);
+        } else if (stateNumber == 1){
+            test1.setVisible(true);
         }
     }
     
