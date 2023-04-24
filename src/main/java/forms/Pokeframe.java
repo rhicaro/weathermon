@@ -5,12 +5,14 @@ import api_assets_weather.*;
 import api_response_classes.*;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import weather_objects.*;
 
 public class Pokeframe extends javax.swing.JFrame {
     public int stateNumber;
     private Response weatherResponse;
     private PokemonResponseName pokeNameResponse;
     private String[] pokemonTypes;
+    private TemperatureObject tempObj;
     
     private API_Response_Weather weatherResponseObject;
     private API_Response_Pokemon pokemonResponseObject;
@@ -41,6 +43,7 @@ public class Pokeframe extends javax.swing.JFrame {
         day5 = new Day5();
         pokemonlist = new PokemonList();
         pokedex = new Pokedex();
+        tempObj = new TemperatureObject();
         
         cityform.setPokeframe(this);
         day1.setPokeframe(this);
@@ -82,6 +85,8 @@ public class Pokeframe extends javax.swing.JFrame {
 
         weatherResponseObject = new API_Response_Weather();
         pokemonResponseObject = new API_Response_Pokemon();
+        
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -96,6 +101,7 @@ public class Pokeframe extends javax.swing.JFrame {
         enterBtn = new javax.swing.JButton();
         nextBtn = new javax.swing.JButton();
         returnBtn = new javax.swing.JButton();
+        tempChangeBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -169,6 +175,13 @@ public class Pokeframe extends javax.swing.JFrame {
             }
         });
 
+        tempChangeBtn.setText("Farenheit");
+        tempChangeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tempChangeBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout userPanelLayout = new javax.swing.GroupLayout(userPanel);
         userPanel.setLayout(userPanelLayout);
         userPanelLayout.setHorizontalGroup(
@@ -180,7 +193,8 @@ public class Pokeframe extends javax.swing.JFrame {
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(enterBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                     .addComponent(nextBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(returnBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(returnBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tempChangeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         userPanelLayout.setVerticalGroup(
@@ -188,15 +202,16 @@ public class Pokeframe extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(windowDisplayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(userPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
                         .addComponent(enterBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nextBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(returnBtn))
-                    .addComponent(windowDisplayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(returnBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tempChangeBtn)))
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout pokedexPanelLayout = new javax.swing.GroupLayout(pokedexPanel);
@@ -282,6 +297,10 @@ public class Pokeframe extends javax.swing.JFrame {
             changeState(stateNumber);
         }
     }//GEN-LAST:event_enterBtn
+
+    private void tempChangeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempChangeBtnActionPerformed
+
+    }//GEN-LAST:event_tempChangeBtnActionPerformed
     
     public Response getWeatherResponse(){
         return this.weatherResponse;
@@ -413,6 +432,7 @@ public class Pokeframe extends javax.swing.JFrame {
     private javax.swing.JButton nextBtn;
     private javax.swing.JPanel pokedexPanel;
     private javax.swing.JButton returnBtn;
+    private javax.swing.JButton tempChangeBtn;
     private javax.swing.JPanel userPanel;
     private javax.swing.JPanel windowDisplayInfo;
     private javax.swing.JLabel windowNameDisplay;

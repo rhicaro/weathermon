@@ -140,6 +140,7 @@
                           <Component id="enterBtn" pref="107" max="32767" attributes="0"/>
                           <Component id="nextBtn" max="32767" attributes="0"/>
                           <Component id="returnBtn" max="32767" attributes="0"/>
+                          <Component id="tempChangeBtn" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -150,17 +151,18 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Component id="windowDisplayInfo" alignment="0" min="-2" pref="107" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="enterBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="nextBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="returnBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="tempChangeBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="windowDisplayInfo" min="-2" pref="107" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -237,6 +239,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="return2LastPanelBtn"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="tempChangeBtn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Farenheit"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tempChangeBtnActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

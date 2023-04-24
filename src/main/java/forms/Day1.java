@@ -5,6 +5,7 @@ import api_assets_pokemon.*;
 import api_response_classes.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import static java.lang.Double.parseDouble;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -75,6 +76,21 @@ public class Day1 extends javax.swing.JPanel {
         rand = new Random();
         
         model.clear();
+    }
+    
+    public double getTemp(){
+        double temp = parseDouble(temperature.getText());
+        return temp;
+    }
+    
+    public double getMaxTemp(){
+        double temp = parseDouble(maxTemperature.getText());
+        return temp;    
+    }
+    
+    public double getMinTemp(){
+        double temp = parseDouble(minTemperature.getText());
+        return temp;    
     }
     
     public void setPokeframe(Pokeframe myCreator){
@@ -156,6 +172,9 @@ public class Day1 extends javax.swing.JPanel {
         }
     }
     
+    public void change2Celsius(){
+        
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

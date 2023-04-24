@@ -35,6 +35,11 @@ public class TemperatureObject extends WeatherAPICall{
         return temp;
     }
     
+    public double convert2Celsius(double value){
+        double convertedValue = round(((value - 32) * 5)/9,2);
+        return convertedValue;
+    }
+    
     public double round(double value, int places){
         if (places < 0) throw new IllegalArgumentException();
         BigDecimal bd = BigDecimal.valueOf(value);
@@ -42,10 +47,6 @@ public class TemperatureObject extends WeatherAPICall{
         return bd.doubleValue();
     }
     
-    public double convert2Celsius(double value){
-        double convertedValue = round(((value - 32) * 5)/9,2);
-        return convertedValue;
-    }
     //==========================================================================
     
     @Override

@@ -9,7 +9,7 @@ package forms;
  * @author raphaelhicaro
  */
 public class Pokedex extends javax.swing.JPanel {
-
+    private PokemonList pokeList;
     /**
      * Creates new form Pokedex
      */
@@ -17,6 +17,13 @@ public class Pokedex extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void setPokemonList(PokemonList myCreator){
+        pokeList = myCreator;
+    }
+    
+    public void updatePanel(String pokemonName){
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
