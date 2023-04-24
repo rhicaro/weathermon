@@ -36,6 +36,7 @@ public class Day1 extends javax.swing.JPanel {
 
     
     private ArrayList<String> pokemonNameList;
+//    private ArrayList<
     private String type1;
     private String type2;
     private String type3;
@@ -344,7 +345,7 @@ public class Day1 extends javax.swing.JPanel {
                         .addComponent(locationLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(city)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, 0)
                         .addComponent(locationComma)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(country)))
@@ -408,14 +409,14 @@ public class Day1 extends javax.swing.JPanel {
 
     private void pokemonListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pokemonListValueChanged
         String currentPokemon = pokemonList.getSelectedValue();
-        String pokemonURL = pokemonNameResponse.getPokemonResponseGeneral(currentPokemon).getSprite().getImageURL();
+        String pokemonURL = pokemonNameResponse.getPokemonResponseGeneral(currentPokemon).getSprite().getImageURL(); //set as a variable 
         if (pokemonURL == null){
             pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
         } else {
             try {
                 url = new URL(pokemonURL);
                 BufferedImage image = ImageIO.read(url);
-                ImageIcon icon = new ImageIcon(image);
+                ImageIcon icon = new ImageIcon(image);//make an arrayList of imageIcon to make pictures load faster.
                 pokemonSprite.setIcon(icon);
             } catch (MalformedURLException ex) {
                 Logger.getLogger(Day1.class.getName()).log(Level.SEVERE, null, ex);

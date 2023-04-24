@@ -66,6 +66,10 @@ public class PokemonList extends javax.swing.JPanel {
         pokeframe = myCreator;
     }
     
+    public String getSelectedPokemon(){
+        return pokemonList.getSelectedValue();
+    }
+    
     public void updatePanel(Response weatherResponse2, String[] pokemonTypes2){
         weatherResponse = weatherResponse2;
         pokemonTypes = pokemonTypes2;
@@ -142,7 +146,6 @@ public class PokemonList extends javax.swing.JPanel {
         currentWeatherLabel = new javax.swing.JLabel();
         weather = new javax.swing.JLabel();
         pokemonSprite = new javax.swing.JLabel();
-        viewPokemonBtn = new javax.swing.JButton();
         weatherSprite = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
@@ -167,13 +170,6 @@ public class PokemonList extends javax.swing.JPanel {
 
         pokemonSprite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
-        viewPokemonBtn.setText("View Selected Pokemon");
-        viewPokemonBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewPokemonBtnActionPerformed(evt);
-            }
-        });
-
         weatherSprite.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5), "Weather"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -193,12 +189,11 @@ public class PokemonList extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(currentWeatherLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(weather))
-                            .addComponent(viewPokemonBtn))
+                                .addComponent(weather)))
                         .addGap(36, 36, 36))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))))
+                        .addGap(49, 49, 49))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,17 +210,11 @@ public class PokemonList extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(viewPokemonBtn)))
+                        .addGap(34, 34, 34)
+                        .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(13, 13, 13))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void viewPokemonBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPokemonBtnActionPerformed
-        selectedPokemon = pokemonList.getSelectedValue();
-    }//GEN-LAST:event_viewPokemonBtnActionPerformed
 
     private void pokemonListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pokemonListValueChanged
          String currentPokemon = pokemonList.getSelectedValue();
@@ -253,7 +242,6 @@ public class PokemonList extends javax.swing.JPanel {
     private javax.swing.JList<String> pokemonList;
     private javax.swing.JScrollPane pokemonListAll;
     private javax.swing.JLabel pokemonSprite;
-    private javax.swing.JButton viewPokemonBtn;
     private javax.swing.JLabel weather;
     private javax.swing.JLabel weatherSprite;
     // End of variables declaration//GEN-END:variables

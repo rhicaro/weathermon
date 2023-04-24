@@ -25,9 +25,7 @@ public class Pokeframe extends javax.swing.JFrame {
     private PokemonList pokemonlist;
     private Pokedex pokedex;
     private ArrayList<JPanel> JPanelList;
-    
-    private Test1 test1;
-    
+        
     public Pokeframe() {
         initComponents();
         stateNumber = 0;
@@ -52,7 +50,6 @@ public class Pokeframe extends javax.swing.JFrame {
         day4.setPokeframe(this);
         day5.setPokeframe(this);
         pokemonlist.setPokeframe(this);
-//        pokedex.setPokeframe(this);
 
         cityform.setSize(400,400);
         day1.setSize(400,400);
@@ -61,7 +58,7 @@ public class Pokeframe extends javax.swing.JFrame {
         day4.setSize(400,400);
         day5.setSize(400,400);
         pokemonlist.setSize(400,400);
-//        pokedex.setSize(400,400);
+        pokedex.setSize(400,400);
         
         descriptionPanel.add(cityform);
         descriptionPanel.add(day1);
@@ -70,7 +67,7 @@ public class Pokeframe extends javax.swing.JFrame {
         descriptionPanel.add(day4);
         descriptionPanel.add(day5);
         descriptionPanel.add(pokemonlist);
-//        descriptionPanel.add(pokedex);
+        descriptionPanel.add(pokedex);
 
         changeState(stateNumber);
         
@@ -85,8 +82,6 @@ public class Pokeframe extends javax.swing.JFrame {
 
         weatherResponseObject = new API_Response_Weather();
         pokemonResponseObject = new API_Response_Pokemon();
-        
-        
     }
     
     @SuppressWarnings("unchecked")
@@ -189,40 +184,42 @@ public class Pokeframe extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(windowDisplayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(enterBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                    .addComponent(nextBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tempChangeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(returnBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tempChangeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(nextBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(enterBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         userPanelLayout.setVerticalGroup(
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(windowDisplayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userPanelLayout.createSequentialGroup()
+                        .addComponent(enterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(returnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tempChangeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50))
                     .addGroup(userPanelLayout.createSequentialGroup()
-                        .addComponent(enterBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nextBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(returnBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tempChangeBtn)))
-                .addGap(32, 32, 32))
+                        .addComponent(windowDisplayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38))))
         );
 
         javax.swing.GroupLayout pokedexPanelLayout = new javax.swing.GroupLayout(pokedexPanel);
         pokedexPanel.setLayout(pokedexPanelLayout);
         pokedexPanelLayout.setHorizontalGroup(
             pokedexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pokedexPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pokedexPanelLayout.createSequentialGroup()
                 .addContainerGap(40, Short.MAX_VALUE)
-                .addGroup(pokedexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(descriptionPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pokedexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(descriptionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50))
         );
         pokedexPanelLayout.setVerticalGroup(
@@ -295,6 +292,9 @@ public class Pokeframe extends javax.swing.JFrame {
             stateNumber = 0;
             enterBtn.setText("Enter");
             changeState(stateNumber);
+        } else if (stateNumber == 6){
+            stateNumber = 7;
+            enterBtn.setText("View Selected Pokemon");
         }
     }//GEN-LAST:event_enterBtn
 
@@ -356,17 +356,6 @@ public class Pokeframe extends javax.swing.JFrame {
         if (stateNumber == 7){
             windowNameDisplay.setText("Pokédex");
             pokedex.setVisible(true);
-        }
-    }
-    
-    //Have to move this somewhere else
-    public void changeState2(int stateNumber){
-        cityform.setVisible(false);
-        test1.setVisible(false);
-        if (stateNumber == 0){
-            cityform.setVisible(true);
-        } else if (stateNumber == 1){
-            test1.setVisible(true);
         }
     }
     

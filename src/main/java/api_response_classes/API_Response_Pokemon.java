@@ -49,7 +49,7 @@ public class API_Response_Pokemon{
         return null;
     }
     
-    public static PokemonResponseDescription getPokemonResponseDescription(String pokemonName){
+    public PokemonResponseDescription getPokemonResponseDescription(String pokemonName){
         Gson gson = new Gson();
         try {
             URL url = new URL("https://pokeapi.co/api/v2/pokemon-species/" + pokemonName);
