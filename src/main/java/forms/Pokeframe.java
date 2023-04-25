@@ -163,7 +163,7 @@ public class Pokeframe extends javax.swing.JFrame {
             }
         });
 
-        tempChangeBtn.setText("Farenheit");
+        tempChangeBtn.setText("Change to Celsius");
         tempChangeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tempChangeBtnActionPerformed(evt);
@@ -275,12 +275,17 @@ public class Pokeframe extends javax.swing.JFrame {
             pokemonTypes = descriptionObj.checkPokemonType(weatherType).split(",");
             stateNumber += 1;
             changeState(stateNumber);
-            day1.updatePanel(weatherResponse, pokemonTypes);//use arrayList
+            day1.updatePanel(weatherResponse, pokemonTypes);
             day2.updatePanel(weatherResponse, pokemonTypes);
             day3.updatePanel(weatherResponse, pokemonTypes);
             day4.updatePanel(weatherResponse, pokemonTypes);
             day5.updatePanel(weatherResponse, pokemonTypes);
             pokemonlist.updatePanel(weatherResponse, pokemonTypes);
+            
+            tempChangeBtn.setText("Convert to Celsius");
+            buttonState=0;
+            change2Imperial();
+            
         } else if (stateNumber != 0 && stateNumber < 6){
             stateNumber = 0;
             changeState(stateNumber);
@@ -297,22 +302,10 @@ public class Pokeframe extends javax.swing.JFrame {
 
     private void tempChangeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempChangeBtnActionPerformed
         if (buttonState == 0){
-            tempChangeBtn.setText("Farenheit");
-            day1.change2Metric();
-            day2.change2Metric();
-            day3.change2Metric();
-            day4.change2Metric();
-            day5.change2Metric();
-            pokedex.convertStats();
+            change2Metric();
             buttonState+=1;
         } else if (buttonState == 1){
-            tempChangeBtn.setText("Celsius");
-            day1.change2Imperial(weatherResponse, 0);
-            day2.change2Imperial(weatherResponse, 7);
-            day3.change2Imperial(weatherResponse, 15);
-            day4.change2Imperial(weatherResponse, 23);
-            day5.change2Imperial(weatherResponse, 31);
-            pokedex.revertStats();
+            change2Imperial();
             buttonState-=1;
         }
     }//GEN-LAST:event_tempChangeBtnActionPerformed
@@ -364,6 +357,26 @@ public class Pokeframe extends javax.swing.JFrame {
             enterBtn.setText("Return to Pokemon List");
             pokedex.setVisible(true);
         }
+    }
+    
+    public void change2Metric(){
+        tempChangeBtn.setText("Change to Farenheit");
+        day1.change2Metric();
+        day2.change2Metric();
+        day3.change2Metric();
+        day4.change2Metric();
+        day5.change2Metric();
+        pokedex.convertStats();
+    }
+    
+    public void change2Imperial(){
+        tempChangeBtn.setText("Change to Celsius");
+        day1.change2Imperial(weatherResponse, 0);
+        day2.change2Imperial(weatherResponse, 7);
+        day3.change2Imperial(weatherResponse, 15);
+        day4.change2Imperial(weatherResponse, 23);
+        day5.change2Imperial(weatherResponse, 31);
+        pokedex.revertStats();
     }
     
     /**
