@@ -6,7 +6,15 @@ package forms;
 
 import api_assets_pokemon.*;
 import api_response_classes.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import pokemon_objects.*;
 
 /**
@@ -22,6 +30,7 @@ public class Pokedex extends javax.swing.JPanel {
     private API_Response_Pokemon pokedexResponse;
     
     private static final DecimalFormat df = new DecimalFormat("0");
+    private URL url;
    
     public Pokedex() {
         initComponents();
@@ -38,17 +47,61 @@ public class Pokedex extends javax.swing.JPanel {
                 getPokemonResponseDescription(pokemonName);
         this.pokemonGeneralResponse = pokedexResponse.
                 getPokemonResponseGeneral(pokemonName);
-        updatePokedex(this.pokemonDescriptionResponse,this.pokemonGeneralResponse);
+        updatePokedex(this.pokemonDescriptionResponse,
+                this.pokemonGeneralResponse, pokemonName);
     }
     
     public void updatePokedex(PokemonResponseDescription responseDescription, 
-            PokemonResponseGeneral responseGeneral){
-        weight.setText(df.format(responseGeneral.getWeight()));
-        height.setText(df.format(responseGeneral.getHeight()));
-        if (responseGeneral.getTypes().length == )
-        type.setText(responseGeneral.)
-        
+            PokemonResponseGeneral responseGeneral, String pokemonName){
+        double pokemonWeight = convertWeight(physicalObj.getWeight(responseGeneral));
+        double pokemonHeight = convertHeight(physicalObj.getHeight(responseGeneral));
+        weight.setText(df.format(pokemonWeight));//Is in hectograms
+        height.setText(df.format(pokemonHeight));//Is in decimeters
+        name.setText(pokemonName);
+        description.setText(descriptionObj.getDescription(responseDescription));
+        setPokemonSprite(responseGeneral);
+        switch (responseGeneral.getTypes().length) {
+            case 1:
+                type.setText(responseGeneral.getTypes()[0].getType().getTypeName());
+                break;
+            case 2:
+                type.setText(responseGeneral.getTypes()[0].getType().getTypeName()
+                        + ", " + responseGeneral.getTypes()[1].getType().getTypeName());
+                break;
+            case 3:
+                type.setText(responseGeneral.getTypes()[0].getType().getTypeName() 
+                        + ", " + responseGeneral.getTypes()[1].getType().getTypeName()
+                        + ", " + responseGeneral.getTypes()[2].getType().getTypeName());
+                break;
+        }
     }
+        
+    public void setPokemonSprite(PokemonResponseGeneral responseGeneral){
+        String pokemonURL = descriptionObj.getSprite(responseGeneral);
+        if (pokemonURL == null){
+            pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
+        } else {
+            try {
+                url = new URL(pokemonURL);
+                BufferedImage image = ImageIO.read(url);
+                ImageIcon icon = new ImageIcon(image);//make an arrayList of imageIcon to make pictures load faster.
+                pokemonSprite.setIcon(icon);
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(Day1.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Day1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public double convertWeight(int value){
+        return (value*0.2204623);
+    }
+    
+    public double convertHeight(int value){
+        return (value*0.328084);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,11 +120,12 @@ public class Pokedex extends javax.swing.JPanel {
         height = new javax.swing.JLabel();
         heightTypeLabel = new javax.swing.JLabel();
         type = new javax.swing.JLabel();
-        description = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        description = new javax.swing.JTextArea();
+        nameLabel = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
-
-        pokemonSprite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
         weightLabel.setText("Pokémon Weight:");
 
@@ -89,20 +143,21 @@ public class Pokedex extends javax.swing.JPanel {
 
         type.setText("Place Holder");
 
-        description.setBorder(javax.swing.BorderFactory.createTitledBorder("Description"));
+        description.setColumns(20);
+        description.setRows(5);
+        jScrollPane1.setViewportView(description);
+
+        nameLabel.setText("Pokémon Name:");
+
+        name.setText("Place Holder");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120))
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(typeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -113,20 +168,31 @@ public class Pokedex extends javax.swing.JPanel {
                         .addComponent(height)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(heightTypeLabel))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(weightLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(weight)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(weightTypeLabel)))
-                .addContainerGap(44, Short.MAX_VALUE))
+                        .addComponent(weightTypeLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(nameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(name))))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(55, 55, 55)
+                .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameLabel)
+                    .addComponent(name))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(weightLabel)
                     .addComponent(weight)
@@ -141,17 +207,20 @@ public class Pokedex extends javax.swing.JPanel {
                     .addComponent(typeLabel)
                     .addComponent(type))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel description;
+    private javax.swing.JTextArea description;
     private javax.swing.JLabel height;
     private javax.swing.JLabel heightLabel;
     private javax.swing.JLabel heightTypeLabel;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel name;
+    private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel pokemonSprite;
     private javax.swing.JLabel type;
     private javax.swing.JLabel typeLabel;

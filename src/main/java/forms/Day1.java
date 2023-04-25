@@ -260,7 +260,6 @@ public class Day1 extends javax.swing.JPanel {
         pokemonSprite.setBackground(new java.awt.Color(0, 0, 0));
         pokemonSprite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
-        weatherSprite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
         weatherSprite.setMaximumSize(new java.awt.Dimension(100, 100));
         weatherSprite.setPreferredSize(new java.awt.Dimension(100, 100));
 

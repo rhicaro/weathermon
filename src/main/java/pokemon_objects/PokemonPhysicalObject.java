@@ -7,12 +7,12 @@ public class PokemonPhysicalObject extends PokemonAPICall{
 
     @Override
     public int getHeight(PokemonResponseGeneral resp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return resp.getHeight();
     }
 
     @Override
     public int getWeight(PokemonResponseGeneral resp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return resp.getWeight();
     }
 //These methods are not used
 //==============================================================================

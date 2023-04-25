@@ -43,7 +43,7 @@ public class Pokeframe extends javax.swing.JFrame {
         pokedex = new Pokedex();
         tempObj = new TemperatureObject();
         
-        cityform.setPokeframe(this);
+        cityform.setPokeframe(this);//use array list
         day1.setPokeframe(this);
         day2.setPokeframe(this);
         day3.setPokeframe(this);
@@ -264,6 +264,8 @@ public class Pokeframe extends javax.swing.JFrame {
     private void nextPanelBtn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextPanelBtn
         if (stateNumber == 7 || stateNumber == 6){
             stateNumber += 0;
+        } else if (stateNumber == 6){
+            enterBtn.setText("View Seleceted Pokemon");
         } else {
         stateNumber += 1;
         }
@@ -281,20 +283,23 @@ public class Pokeframe extends javax.swing.JFrame {
             pokemonTypes = checkPokemonType(weatherType).split(",");//should now be accessible outside of the frame
             stateNumber += 1;
             changeState(stateNumber);
-            enterBtn.setText("Change Location");
             day1.updatePanel(weatherResponse, pokemonTypes);//use arrayList
             day2.updatePanel(weatherResponse, pokemonTypes);
             day3.updatePanel(weatherResponse, pokemonTypes);
             day4.updatePanel(weatherResponse, pokemonTypes);
             day5.updatePanel(weatherResponse, pokemonTypes);
             pokemonlist.updatePanel(weatherResponse, pokemonTypes);
-        } else if (stateNumber != 0){
+        } else if (stateNumber != 0 && stateNumber < 6){
             stateNumber = 0;
-            enterBtn.setText("Enter");
             changeState(stateNumber);
         } else if (stateNumber == 6){
             stateNumber = 7;
-            enterBtn.setText("View Selected Pokemon");
+            String selectedPokemon = pokemonlist.getSelectedPokemon();
+            pokedex.updatePanel(selectedPokemon);
+            changeState(stateNumber);
+        } else if (stateNumber == 7){
+            stateNumber = 6;
+            changeState(stateNumber);
         }
     }//GEN-LAST:event_enterBtn
 
@@ -327,10 +332,12 @@ public class Pokeframe extends javax.swing.JFrame {
                         
         if (stateNumber == 0){
             windowNameDisplay.setText("Enter City");
+            enterBtn.setText("Enter");
             cityform.setVisible(true);
         }
         if (stateNumber == 1){
             windowNameDisplay.setText("    Day 1");
+            enterBtn.setText("Change Location");
             day1.setVisible(true);
         }
         if (stateNumber == 2){
@@ -351,10 +358,12 @@ public class Pokeframe extends javax.swing.JFrame {
         }
         if (stateNumber == 6){
             windowNameDisplay.setText("Pokémon");
-             pokemonlist.setVisible(true);
+            enterBtn.setText("View Selected Pokemon");
+            pokemonlist.setVisible(true);
         }
         if (stateNumber == 7){
             windowNameDisplay.setText("Pokédex");
+            enterBtn.setText("Return to Pokemon List");
             pokedex.setVisible(true);
         }
     }
