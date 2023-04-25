@@ -12,14 +12,11 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import weather_objects.*;
-import pokemon_objects.*;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 
 public class Day1 extends javax.swing.JPanel {
     private Pokeframe pokeframe;
@@ -172,10 +169,34 @@ public class Day1 extends javax.swing.JPanel {
             weatherSprite.setIcon(new ImageIcon("src/main/resources/snow.png"));
         }
     }
-    
-    public void change2Celsius(){
+    public void change2Metric(){
+        double temp1 = tempObj.convert2Celsius(parseDouble(temperature.getText()));
+        double temp2 = weatherObj.convertWindSpeedMetric(parseDouble(windspeed.getText()));
+        double temp3 = tempObj.convert2Celsius(parseDouble(maxTemperature.getText()));
+        double temp4 = tempObj.convert2Celsius(parseDouble(minTemperature.getText()));
         
+        temperatureType.setText("°Celsius");
+        windSpeedType.setText("KPH");
+        maxTemperatureType.setText("°Celsius");
+        minTemperatureType.setText("°Celsius");
+        
+        temperature.setText(df2.format(temp1));
+        windspeed.setText(df.format(temp2));
+        maxTemperature.setText(df.format(temp3));
+        minTemperature.setText(df.format(temp4));
     }
+    
+    public void change2Imperial(Response weatherResponse, int index){
+        temperature.setText(df2.format(tempObj.tempCall(weatherResponse, index)));
+        windspeed.setText(df.format(weatherObj.windCall(weatherResponse, index)));
+        maxTemperature.setText(df.format(tempObj.tempCallHigh(weatherResponse, index)));
+        minTemperature.setText(df.format(tempObj.tempCallLow(weatherResponse, index)));
+        
+        temperatureType.setText("°Farenheit");
+        windSpeedType.setText("MPH");
+        maxTemperatureType.setText("°Farenheit");
+        minTemperatureType.setText("°Farenheit");
+    }    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -330,12 +351,14 @@ public class Day1 extends javax.swing.JPanel {
                                 .addComponent(temperature)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(temperatureType)))
-                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(1, 1, 1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(dateLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

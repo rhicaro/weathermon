@@ -42,15 +42,36 @@ public class PokemonDescriptionObject extends PokemonAPICall{
         }
         return "No entry";
     }
-//
+    
+    public String checkPokemonType(String weatherType){//Need to move this to an object
+        if (weatherType.contains("clear")||weatherType.contains("sun")){
+            return "fire,grass,ground";
+        } else if (weatherType.contains("cloud")||weatherType.contains("overcast")){
+            return "fighting,poison,fairy";
+        } else if (weatherType.contains("part")||weatherType.contains("scattered")||
+                weatherType.contains("few")){
+            return "normal,rock";
+        }else if (weatherType.contains("rain")){
+            return "water,electric,bug";
+        }else if (weatherType.contains("wind")){
+            return "flying,psychic,dragon";
+        }else if (weatherType.contains("fog")){
+            return "ghost,dark";
+        }else if (weatherType.contains("snow")){
+            return "ice,steel";
+        } else {
+            return null;
+        }
+    }
 //==============================================================================
-        @Override
-    public int getHeight(PokemonResponseGeneral resp) {
+    @Override
+    public double getHeight(PokemonResponseGeneral resp) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public int getWeight(PokemonResponseGeneral resp) {
+    public double getWeight(PokemonResponseGeneral resp) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 }

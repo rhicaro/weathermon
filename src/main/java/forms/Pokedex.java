@@ -8,6 +8,7 @@ import api_assets_pokemon.*;
 import api_response_classes.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import static java.lang.Double.parseDouble;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -30,8 +31,9 @@ public class Pokedex extends javax.swing.JPanel {
     private API_Response_Pokemon pokedexResponse;
     
     private static final DecimalFormat df = new DecimalFormat("0");
+    private static final DecimalFormat df2 = new DecimalFormat("0.00");
     private URL url;
-   
+    
     public Pokedex() {
         initComponents();
         pokemonDescriptionResponse = new PokemonResponseDescription();
@@ -53,10 +55,10 @@ public class Pokedex extends javax.swing.JPanel {
     
     public void updatePokedex(PokemonResponseDescription responseDescription, 
             PokemonResponseGeneral responseGeneral, String pokemonName){
-        double pokemonWeight = convertWeight(physicalObj.getWeight(responseGeneral));
-        double pokemonHeight = convertHeight(physicalObj.getHeight(responseGeneral));
-        weight.setText(df.format(pokemonWeight));//Is in hectograms
-        height.setText(df.format(pokemonHeight));//Is in decimeters
+        double pokemonWeight = physicalObj.getWeight(responseGeneral);
+        double pokemonHeight = physicalObj.getHeight(responseGeneral);
+        weight.setText(df2.format(pokemonWeight));//Is in hectograms
+        height.setText(df2.format(pokemonHeight));//Is in decimeters
         name.setText(pokemonName);
         description.setText(descriptionObj.getDescription(responseDescription));
         setPokemonSprite(responseGeneral);
@@ -94,12 +96,21 @@ public class Pokedex extends javax.swing.JPanel {
         }
     }
     
-    public double convertWeight(int value){
-        return (value*0.2204623);
+    
+    public void convertStats(){
+        double temp1 = physicalObj.convert2MetricWeight(parseDouble(weight.getText()));
+        double temp2 = physicalObj.convert2MetricHeight(parseDouble(height.getText()));
+        weight.setText(df2.format(temp1));
+        height.setText(df2.format(temp2));
+        weightTypeLabel.setText("kg");
+        heightTypeLabel.setText("m");
     }
     
-    public double convertHeight(int value){
-        return (value*0.328084);
+    public void revertStats(){
+        weight.setText(df2.format(physicalObj.getWeight(this.pokemonGeneralResponse)));
+        height.setText(df2.format(physicalObj.getHeight(this.pokemonGeneralResponse)));
+        weightTypeLabel.setText("lbs");
+        heightTypeLabel.setText("ft");
     }
     
     /**

@@ -117,6 +117,7 @@ public class PokemonList extends javax.swing.JPanel {
     
     public void setWeatherImage(Response weatherResponse){ //changes the img based on the current weather
         String weatherDescription = weatherResponse.getList()[0].getWeather()[0].getDescription();
+        weather.setText(weatherDescription);
         if (weatherDescription.contains("clear") || weatherDescription.contains("sun")){
             weatherSprite.setIcon(new ImageIcon("src/main/resources/sun.png"));
         } else if (weatherDescription.contains("cloud") || weatherDescription.contains("part")){
@@ -170,8 +171,6 @@ public class PokemonList extends javax.swing.JPanel {
 
         pokemonSprite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
-        weatherSprite.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5), "Weather"));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -193,9 +192,9 @@ public class PokemonList extends javax.swing.JPanel {
                                 .addGap(43, 43, 43)
                                 .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
+                                .addGap(27, 27, 27)
                                 .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(28, 28, 28))))
+                        .addGap(27, 27, 27))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,9 +206,9 @@ public class PokemonList extends javax.swing.JPanel {
                     .addComponent(weather))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
+                        .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(18, 18, 18)

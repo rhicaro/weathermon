@@ -33,6 +33,10 @@ public class WeatherObject extends WeatherAPICall{
         String temp = weatherData.getList()[index].getWeather()[0].getDescription();
         return temp;
     }
+    
+    public double convertWindSpeedMetric(double value){
+        return value*1.609;
+    }
     //==========================================================================
     @Override
     public String cityCall(Response weatherData) {

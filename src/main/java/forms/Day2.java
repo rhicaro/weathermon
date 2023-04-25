@@ -5,6 +5,7 @@ import api_assets_pokemon.*;
 import api_response_classes.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import static java.lang.Double.parseDouble;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -154,6 +155,30 @@ public class Day2 extends javax.swing.JPanel {
             weatherSprite.setIcon(new ImageIcon("src/main/resources/snow.png"));
         }
     }
+    
+    public void change2Metric(){
+        double temp2 = weatherObj.convertWindSpeedMetric(parseDouble(windspeed.getText()));
+        double temp3 = tempObj.convert2Celsius(parseDouble(maxTemperature.getText()));
+        double temp4 = tempObj.convert2Celsius(parseDouble(minTemperature.getText()));
+        
+        windSpeedType.setText("KPH");
+        maxTemperatureType.setText("°Celsius");
+        minTemperatureType.setText("°Celsius");
+        
+        windspeed.setText(df.format(temp2));
+        maxTemperature.setText(df.format(temp3));
+        minTemperature.setText(df.format(temp4));
+    }
+    
+    public void change2Imperial(Response weatherResponse, int index){
+        windspeed.setText(df.format(weatherObj.windCall(weatherResponse, index)));
+        maxTemperature.setText(df.format(tempObj.tempCallHigh(weatherResponse, index)));
+        minTemperature.setText(df.format(tempObj.tempCallLow(weatherResponse, index)));
+        
+        windSpeedType.setText("MPH");
+        maxTemperatureType.setText("°Farenheit");
+        minTemperatureType.setText("°Farenheit");
+    }    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

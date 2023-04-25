@@ -17,21 +17,21 @@ public class TemperatureObject extends WeatherAPICall{
     @Override
     public double tempCall(Response weatherData, int index) {
         double temp = weatherData.getList()[index].getMain().getTemp();
-        temp = (temp - 273.15) * (9/5) + 32;
+        temp = (temp - 273.15) * 9/5 + 32;
         return temp;
     }
 
     @Override
     public double tempCallHigh(Response weatherData, int index) {
         double temp = weatherData.getList()[index].getMain().getTemp_max();
-        temp = (temp - 273.15) * (9/5) + 32;
+        temp = (temp - 273.15) * 9/5 + 32;
         return temp;
     }
 
     @Override
     public double tempCallLow(Response weatherData, int index) {
         double temp = weatherData.getList()[index].getMain().getTemp_min();
-        temp = (temp - 273.15) * (9/5) + 32;
+        temp = (temp - 273.15) * 9/5 + 32;
         return temp;
     }
     

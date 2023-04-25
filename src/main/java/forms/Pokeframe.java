@@ -5,10 +5,12 @@ import api_assets_weather.*;
 import api_response_classes.*;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import pokemon_objects.*;
 import weather_objects.*;
 
 public class Pokeframe extends javax.swing.JFrame {
     public int stateNumber;
+    public int buttonState;
     private Response weatherResponse;
     private PokemonResponseName pokeNameResponse;
     private String[] pokemonTypes;
@@ -16,6 +18,8 @@ public class Pokeframe extends javax.swing.JFrame {
     
     private API_Response_Weather weatherResponseObject;
     private API_Response_Pokemon pokemonResponseObject;
+    private PokemonDescriptionObject descriptionObj;
+            
     private CityForm cityform;
     private Day1 day1;
     private Day2 day2;
@@ -29,9 +33,13 @@ public class Pokeframe extends javax.swing.JFrame {
     public Pokeframe() {
         initComponents();
         stateNumber = 0;
+        buttonState = 0;
         weatherResponse = null;
         pokeNameResponse = null;
         pokemonTypes = null;
+        weatherResponseObject = new API_Response_Weather();
+        pokemonResponseObject = new API_Response_Pokemon();
+        descriptionObj = new PokemonDescriptionObject();
         
         cityform = new CityForm();
         day1 = new Day1();
@@ -43,35 +51,8 @@ public class Pokeframe extends javax.swing.JFrame {
         pokedex = new Pokedex();
         tempObj = new TemperatureObject();
         
-        cityform.setPokeframe(this);//use array list
-        day1.setPokeframe(this);
-        day2.setPokeframe(this);
-        day3.setPokeframe(this);
-        day4.setPokeframe(this);
-        day5.setPokeframe(this);
-        pokemonlist.setPokeframe(this);
-
-        cityform.setSize(400,400);
-        day1.setSize(400,400);
-        day2.setSize(400,400);
-        day3.setSize(400,400);
-        day4.setSize(400,400);
-        day5.setSize(400,400);
-        pokemonlist.setSize(400,400);
-        pokedex.setSize(400,400);
-        
-        descriptionPanel.add(cityform);
-        descriptionPanel.add(day1);
-        descriptionPanel.add(day2);
-        descriptionPanel.add(day3);
-        descriptionPanel.add(day4);
-        descriptionPanel.add(day5);
-        descriptionPanel.add(pokemonlist);
-        descriptionPanel.add(pokedex);
-
-        changeState(stateNumber);
-        
-        JPanelList = new ArrayList<>(); 
+        JPanelList = new ArrayList<>();
+        JPanelList.add(cityform);
         JPanelList.add(day1);
         JPanelList.add(day2);
         JPanelList.add(day3);
@@ -79,9 +60,21 @@ public class Pokeframe extends javax.swing.JFrame {
         JPanelList.add(day5);
         JPanelList.add(pokemonlist);
         JPanelList.add(pokedex);
-
-        weatherResponseObject = new API_Response_Weather();
-        pokemonResponseObject = new API_Response_Pokemon();
+        
+        cityform.setPokeframe(this);//use array list
+        day1.setPokeframe(this);
+        day2.setPokeframe(this);
+        day3.setPokeframe(this);
+        day4.setPokeframe(this);
+        day5.setPokeframe(this);
+        pokemonlist.setPokeframe(this);
+        
+        for (JPanel panel:JPanelList){
+            panel.setSize(400,400);
+            descriptionPanel.add(panel);
+        }
+        
+        changeState(stateNumber);
     }
     
     @SuppressWarnings("unchecked")
@@ -114,7 +107,7 @@ public class Pokeframe extends javax.swing.JFrame {
         descriptionPanel.setLayout(descriptionPanelLayout);
         descriptionPanelLayout.setHorizontalGroup(
             descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGap(0, 388, Short.MAX_VALUE)
         );
         descriptionPanelLayout.setVerticalGroup(
             descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,17 +129,17 @@ public class Pokeframe extends javax.swing.JFrame {
         windowDisplayInfo.setLayout(windowDisplayInfoLayout);
         windowDisplayInfoLayout.setHorizontalGroup(
             windowDisplayInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, windowDisplayInfoLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+            .addGroup(windowDisplayInfoLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addComponent(windowNameDisplay)
-                .addContainerGap())
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         windowDisplayInfoLayout.setVerticalGroup(
             windowDisplayInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, windowDisplayInfoLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .addComponent(windowNameDisplay)
-                .addGap(35, 35, 35))
+                .addGap(28, 28, 28))
         );
 
         enterBtn.setText("Enter");
@@ -183,31 +176,31 @@ public class Pokeframe extends javax.swing.JFrame {
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(windowDisplayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tempChangeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(windowDisplayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(returnBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(nextBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tempChangeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                     .addComponent(enterBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap())
         );
         userPanelLayout.setVerticalGroup(
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userPanelLayout.createSequentialGroup()
-                        .addComponent(enterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(returnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tempChangeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50))
                     .addGroup(userPanelLayout.createSequentialGroup()
-                        .addComponent(windowDisplayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(enterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(returnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67))
+                    .addGroup(userPanelLayout.createSequentialGroup()
+                        .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(windowDisplayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tempChangeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(38, 38, 38))))
         );
 
@@ -216,11 +209,11 @@ public class Pokeframe extends javax.swing.JFrame {
         pokedexPanelLayout.setHorizontalGroup(
             pokedexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pokedexPanelLayout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addGroup(pokedexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(descriptionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50))
+                    .addComponent(descriptionPanel, 398, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userPanel, 398, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46))
         );
         pokedexPanelLayout.setVerticalGroup(
             pokedexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,8 +231,7 @@ public class Pokeframe extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(pokedexPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(pokedexPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +272,7 @@ public class Pokeframe extends javax.swing.JFrame {
             double cityLon = cityNameObj.getLon();
             weatherResponse = weatherResponseObject.getResponse(cityLat, cityLon); //should now be accessible outside of the frame
             String weatherType = weatherResponse.getList()[0].getWeather()[0].getDescription();
-            pokemonTypes = checkPokemonType(weatherType).split(",");//should now be accessible outside of the frame
+            pokemonTypes = descriptionObj.checkPokemonType(weatherType).split(",");
             stateNumber += 1;
             changeState(stateNumber);
             day1.updatePanel(weatherResponse, pokemonTypes);//use arrayList
@@ -304,22 +296,27 @@ public class Pokeframe extends javax.swing.JFrame {
     }//GEN-LAST:event_enterBtn
 
     private void tempChangeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempChangeBtnActionPerformed
-
+        if (buttonState == 0){
+            tempChangeBtn.setText("Farenheit");
+            day1.change2Metric();
+            day2.change2Metric();
+            day3.change2Metric();
+            day4.change2Metric();
+            day5.change2Metric();
+            pokedex.convertStats();
+            buttonState+=1;
+        } else if (buttonState == 1){
+            tempChangeBtn.setText("Celsius");
+            day1.change2Imperial(weatherResponse, 0);
+            day2.change2Imperial(weatherResponse, 7);
+            day3.change2Imperial(weatherResponse, 15);
+            day4.change2Imperial(weatherResponse, 23);
+            day5.change2Imperial(weatherResponse, 31);
+            pokedex.revertStats();
+            buttonState-=1;
+        }
     }//GEN-LAST:event_tempChangeBtnActionPerformed
     
-    public Response getWeatherResponse(){
-        return this.weatherResponse;
-    }
-    
-    public String[] getPokemonTypes(){
-        return this.pokemonTypes;
-    }
-    
-    public PokemonResponseName getPokemonNameResponse(){
-        return this.pokeNameResponse;
-    }
-    
-    //Have to move this somewhere else
     public void changeState(int stateNumber){
         cityform.setVisible(false);
         day1.setVisible(false);
@@ -336,24 +333,25 @@ public class Pokeframe extends javax.swing.JFrame {
             cityform.setVisible(true);
         }
         if (stateNumber == 1){
-            windowNameDisplay.setText("    Day 1");
+            windowNameDisplay.setText("   Day 1");
             enterBtn.setText("Change Location");
             day1.setVisible(true);
         }
         if (stateNumber == 2){
-            windowNameDisplay.setText("    Day 2");
+            windowNameDisplay.setText("   Day 2");
             day2.setVisible(true);
         }
         if (stateNumber == 3){
-            windowNameDisplay.setText("    Day 3");
+            windowNameDisplay.setText("   Day 3");
             day3.setVisible(true);
         }
         if (stateNumber == 4){
-            windowNameDisplay.setText("    Day 4");
+            windowNameDisplay.setText("   Day 4");
             day4.setVisible(true);
         }
         if (stateNumber == 5){
-            windowNameDisplay.setText("    Day 5");
+            windowNameDisplay.setText("   Day 5");
+            enterBtn.setText("Change Location");
             day5.setVisible(true);
         }
         if (stateNumber == 6){
@@ -362,30 +360,9 @@ public class Pokeframe extends javax.swing.JFrame {
             pokemonlist.setVisible(true);
         }
         if (stateNumber == 7){
-            windowNameDisplay.setText("Pokédex");
+            windowNameDisplay.setText(" Pokédex");
             enterBtn.setText("Return to Pokemon List");
             pokedex.setVisible(true);
-        }
-    }
-    
-    public String checkPokemonType(String weatherType){
-        if (weatherType.contains("clear")||weatherType.contains("sun")){
-            return "fire,grass,ground";
-        } else if (weatherType.contains("cloud")||weatherType.contains("overcast")){
-            return "fighting,poison,fairy";
-        } else if (weatherType.contains("part")||weatherType.contains("scattered")||
-                weatherType.contains("few")){
-            return "normal,rock";
-        }else if (weatherType.contains("rain")){
-            return "water,electric,bug";
-        }else if (weatherType.contains("wind")){
-            return "flying,psychic,dragon";
-        }else if (weatherType.contains("fog")){
-            return "ghost,dark";
-        }else if (weatherType.contains("snow")){
-            return "ice,steel";
-        } else {
-            return null;
         }
     }
     

@@ -6,14 +6,40 @@ import classes.*;
 public class PokemonPhysicalObject extends PokemonAPICall{
 
     @Override
-    public int getHeight(PokemonResponseGeneral resp) {
-        return resp.getHeight();
+    public double getHeight(PokemonResponseGeneral resp) {
+        return convertHeightInitial(resp.getHeight());
     }
 
     @Override
-    public int getWeight(PokemonResponseGeneral resp) {
-        return resp.getWeight();
+    public double getWeight(PokemonResponseGeneral resp) {
+        return convertWeightInitial(resp.getWeight());
     }
+    
+    /**
+     * For converting the value from the API(hectograms to lbs)
+     * @param value
+     * @return 
+     */
+    public double convertWeightInitial(int value){
+        return (value*0.2204623);
+    }
+    /**
+     * For converting the value from the API(Decimeter to ft)
+     * @param value
+     * @return 
+     */
+    public double convertHeightInitial(double value){
+        return (value*0.328084);
+    }
+    
+    public double convert2MetricWeight(double value){
+        return value/2.205;
+    }
+    
+    public double convert2MetricHeight(double value){
+        return value/3.281;
+    }
+    
 //These methods are not used
 //==============================================================================
     @Override
