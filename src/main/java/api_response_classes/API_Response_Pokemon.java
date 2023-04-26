@@ -12,7 +12,17 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class API_Response_Pokemon{    
+/**
+ * Acts as an object that simply houses methods specifically for getting the API Pokemon Response
+ * @author raphaelhicaro
+ */
+public class API_Response_Pokemon{  
+    
+    /**
+     * Method to return a list of pokemon based on the element type
+     * @param pokemonType String version of element type
+     * @return PokemonResponseName
+     */
     public PokemonResponseName getPokemonResponseName(String pokemonType){
         Gson gson = new Gson();
         try {
@@ -31,6 +41,11 @@ public class API_Response_Pokemon{
         return null;
     }
     
+    /**
+     * Similar to above method but is used for general information on said pokemon
+     * @param pokemonName string name of the pokemon
+     * @return PokemonResponseGeneral
+     */
     public PokemonResponseGeneral getPokemonResponseGeneral(String pokemonName){
         Gson gson = new Gson();
         try {
@@ -49,6 +64,11 @@ public class API_Response_Pokemon{
         return null;
     }
     
+    /**
+     * Similar to above methods but is used to get the falvor text of the pokemon
+     * @param pokemonName String name of the pokemon
+     * @return PokemonResponseDescription
+     */
     public PokemonResponseDescription getPokemonResponseDescription(String pokemonName){
         Gson gson = new Gson();
         try {

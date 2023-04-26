@@ -62,14 +62,27 @@ public class PokemonList extends javax.swing.JPanel {
         model.clear();
     }
     
+    /**
+     * sets the creator as pokeframe
+     * @param myCreator 
+     */
     public void setPokeframe(Pokeframe myCreator){
         pokeframe = myCreator;
     }
     
+    /**
+     * gets the name fo the selected pokemon
+     * @return 
+     */
     public String getSelectedPokemon(){
         return pokemonList.getSelectedValue();
     }
     
+    /**
+     * updates the panel
+     * @param weatherResponse2 api response
+     * @param pokemonTypes2 string of pokemon type
+     */
     public void updatePanel(Response weatherResponse2, String[] pokemonTypes2){
         weatherResponse = weatherResponse2;
         pokemonTypes = pokemonTypes2;
@@ -81,6 +94,11 @@ public class PokemonList extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * sets the list to all the pokemon with a similar typing
+     * @param pokemonNameResp api response
+     * @param model list to be shown
+     */
     public void setPokemonList(PokemonResponseName pokemonNameResp, DefaultListModel model){
         int numberOfPokemon = pokemonNameResp.getPokemonList().length;
         for (int i=0; i<numberOfPokemon; i++){
@@ -92,6 +110,12 @@ public class PokemonList extends javax.swing.JPanel {
         pokemonNameList.clear();
     }
 
+    /**
+     * sets the arraylist to the 2-3 different types
+     * @param pokemonTypes string array of types
+     * @param pokemonTypeList arrayList to add to
+     * @return 
+     */
     public ArrayList<PokemonResponseName> setTypes(String[] pokemonTypes, ArrayList<PokemonResponseName> pokemonTypeList){
         if (pokemonTypes.length == 2){
             type1 = pokemonTypes[0];
@@ -115,6 +139,10 @@ public class PokemonList extends javax.swing.JPanel {
         }
     }
     
+    /**
+     * sets th weather image
+     * @param weatherResponse api response
+     */
     public void setWeatherImage(Response weatherResponse){ //changes the img based on the current weather
         String weatherDescription = weatherResponse.getList()[0].getWeather()[0].getDescription();
         weather.setText(weatherDescription);

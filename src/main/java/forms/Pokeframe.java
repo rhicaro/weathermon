@@ -310,6 +310,10 @@ public class Pokeframe extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tempChangeBtnActionPerformed
     
+    /**
+     * changes the scene (panel)
+     * @param stateNumber state of the program
+     */
     public void changeState(int stateNumber){
         cityform.setVisible(false);
         day1.setVisible(false);
@@ -359,6 +363,9 @@ public class Pokeframe extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * changes everything to metric system
+     */
     public void change2Metric(){
         tempChangeBtn.setText("Change to Farenheit");
         day1.change2Metric();
@@ -369,6 +376,9 @@ public class Pokeframe extends javax.swing.JFrame {
         pokedex.convertStats();
     }
     
+    /**
+     * changes everything to Imperial system
+     */
     public void change2Imperial(){
         tempChangeBtn.setText("Change to Celsius");
         day1.change2Imperial(weatherResponse, 0);

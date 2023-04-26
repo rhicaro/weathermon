@@ -44,6 +44,10 @@ public class Pokedex extends javax.swing.JPanel {
         pokedexResponse = new API_Response_Pokemon();
     }
     
+    /**
+     * updates the panel
+     * @param pokemonName string name of pokemon
+     */
     public void updatePanel(String pokemonName){
         this.pokemonDescriptionResponse = pokedexResponse.
                 getPokemonResponseDescription(pokemonName);
@@ -53,6 +57,12 @@ public class Pokedex extends javax.swing.JPanel {
                 this.pokemonGeneralResponse, pokemonName);
     }
     
+    /**
+     * updates the pokedex with specific information about the pokemon
+     * @param responseDescription api response for flavor text
+     * @param responseGeneral api response for general information about pokemon
+     * @param pokemonName name of pokemon
+     */
     public void updatePokedex(PokemonResponseDescription responseDescription, 
             PokemonResponseGeneral responseGeneral, String pokemonName){
         double pokemonWeight = physicalObj.getWeight(responseGeneral);
@@ -78,6 +88,10 @@ public class Pokedex extends javax.swing.JPanel {
         }
     }
         
+    /**
+     * sets the sprite of the pokemon
+     * @param responseGeneral 
+     */
     public void setPokemonSprite(PokemonResponseGeneral responseGeneral){
         String pokemonURL = descriptionObj.getSprite(responseGeneral);
         if (pokemonURL == null){
@@ -96,7 +110,9 @@ public class Pokedex extends javax.swing.JPanel {
         }
     }
     
-    
+    /**
+     * converts the height and weight to metric
+     */
     public void convertStats(){
         double temp1 = physicalObj.convert2MetricWeight(parseDouble(weight.getText()));
         double temp2 = physicalObj.convert2MetricHeight(parseDouble(height.getText()));
@@ -106,6 +122,9 @@ public class Pokedex extends javax.swing.JPanel {
         heightTypeLabel.setText("m");
     }
     
+    /**
+     * converts height and weight to Imperial
+     */
     public void revertStats(){
         weight.setText(df2.format(physicalObj.getWeight(this.pokemonGeneralResponse)));
         height.setText(df2.format(physicalObj.getHeight(this.pokemonGeneralResponse)));

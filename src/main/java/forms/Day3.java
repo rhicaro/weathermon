@@ -78,10 +78,19 @@ public class Day3 extends javax.swing.JPanel {
         model.clear();
     }
     
+    /**
+     * sets pokeframe as the creator
+     * @param myCreator 
+     */
     public void setPokeframe(Pokeframe myCreator){
         pokeframe = myCreator;
     }
     
+    /**
+     * updates the panel when a new city is selected
+     * @param weatherResponse1 weather response based on the city
+     * @param pokemonTypes list of elements
+     */
     public void updatePanel(Response weatherResponse1, String[] pokemonTypes){
         weatherResponse = weatherResponse1;
         setWeatherInfo(weatherResponse, 15);
@@ -92,6 +101,11 @@ public class Day3 extends javax.swing.JPanel {
         }
     }
     
+    /**
+     * sets the windows information
+     * @param weatherResponse weather api response
+     * @param index index in api
+     */
     public void setWeatherInfo(Response weatherResponse, int index){
         windspeed.setText(df.format(weatherObj.windCall(weatherResponse, index)));
         humidity.setText(df.format(weatherObj.humidityCall(weatherResponse, index)));
@@ -104,6 +118,11 @@ public class Day3 extends javax.swing.JPanel {
         
     }
     
+    /**
+     * sets the list with pokemon
+     * @param pokemonNameResp api response 
+     * @param model UI list
+     */
     public void setPokemonList(PokemonResponseName pokemonNameResp, DefaultListModel model){
         int numberOfPokemon = pokemonNameResp.getPokemonList().length;
         for (int i=0; i<4; i++){
@@ -116,6 +135,12 @@ public class Day3 extends javax.swing.JPanel {
         pokemonNameList.clear();
     }
 
+     /**
+     * sets the arrayList to the element type
+     * @param pokemonTypes string array of elements
+     * @param pokemonTypeList arrayList to add the information to
+     * @return 
+     */
     public ArrayList<PokemonResponseName> setTypes(String[] pokemonTypes, ArrayList<PokemonResponseName> pokemonTypeList){
         if (pokemonTypes.length == 2){
             type1 = pokemonTypes[0];
@@ -139,6 +164,10 @@ public class Day3 extends javax.swing.JPanel {
         }
     }
     
+    /**
+     * sets the image
+     * @param weatherResponse api response
+     */
     public void setWeatherImage(Response weatherResponse){ //changes the img based on the current weather
         String weatherDescription = weatherResponse.getList()[15].getWeather()[0].getDescription();
         if (weatherDescription.contains("clear") || weatherDescription.contains("sun")){
@@ -156,6 +185,9 @@ public class Day3 extends javax.swing.JPanel {
         }
     }
     
+    /**
+     * changes everything to metric system
+     */
     public void change2Metric(){
         double temp2 = weatherObj.convertWindSpeedMetric(parseDouble(windspeed.getText()));
         double temp3 = tempObj.convert2Celsius(parseDouble(maxTemperature.getText()));
@@ -170,6 +202,11 @@ public class Day3 extends javax.swing.JPanel {
         minTemperature.setText(df.format(temp4));
     }
     
+    /**
+     * changes back to imperial
+     * @param weatherResponse api response
+     * @param index api index
+     */
     public void change2Imperial(Response weatherResponse, int index){
         windspeed.setText(df.format(weatherObj.windCall(weatherResponse, index)));
         maxTemperature.setText(df.format(tempObj.tempCallHigh(weatherResponse, index)));

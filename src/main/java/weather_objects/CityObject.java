@@ -12,11 +12,22 @@ import api_assets_weather.Response;
  * @author raphaelhicaro
  */
 public class CityObject extends WeatherAPICall{
+    /**
+     * gets the name of the city
+     * @param weatherData api response
+     * @return string
+     */
      @Override
     public String cityCall(Response weatherData) {
         String temp = weatherData.getCity().getName();
         return temp;
     }
+    
+    /**
+     * gets the name of the country
+     * @param weatherData api response
+     * @return string
+     */
     @Override
     public String countryCall(Response weatherData) {
         String temp = weatherData.getCity().getCountry();

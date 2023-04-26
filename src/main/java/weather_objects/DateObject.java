@@ -12,6 +12,12 @@ import api_assets_weather.Response;
  * @author raphaelhicaro
  */
 public class DateObject extends WeatherAPICall{
+    /**
+     * gets a date from api
+     * @param weatherData api response
+     * @param index index in api
+     * @return string
+     */
     @Override
     public String dateCall(Response weatherData, int index) {
         String date_Num = weatherData.getList()[index].getDt_Text(); 

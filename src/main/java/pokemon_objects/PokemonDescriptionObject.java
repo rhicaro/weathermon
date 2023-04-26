@@ -4,25 +4,46 @@ import api_assets_pokemon.*;
 import classes.*;
 
 public class PokemonDescriptionObject extends PokemonAPICall{
+    /**
+     * gets the name of the pokemon
+     * @param resp api response
+     * @param index index in api list
+     * @return string
+     */
     @Override
     public String getName(PokemonResponseName resp, int index) {
         String temp = resp.getPokemonList()[index].getPokemon().getPokemonName();
         return temp;
     }
 
+    /**
+     * gets the description of the pokemon
+     * @param resp api response
+     * @return string
+     */
     @Override
     public String getDescription(PokemonResponseDescription resp) {
         String temp = englishDescription(resp);
         return temp;
     }
 
+    /**
+     * gets the url sprite
+     * @param resp api response
+     * @return string
+     */
     @Override
     public String getSprite(PokemonResponseGeneral resp) {
         String temp = resp.getSprite().getImageURL();
         return temp;
     }
     
-    public static String englishDescription(PokemonResponseDescription pokemon){
+    /**
+     * finds the english version of the flavor text
+     * @param pokemon api response
+     * @return string
+     */
+    public String englishDescription(PokemonResponseDescription pokemon){
         String temp = "";
         String description = "";
         FlavorText[] entryList = pokemon.getFlavorText();
@@ -43,6 +64,11 @@ public class PokemonDescriptionObject extends PokemonAPICall{
         return "No entry";
     }
     
+    /**
+     * checks and matches types with weather condition
+     * @param weatherType type of weather available
+     * @return String
+     */
     public String checkPokemonType(String weatherType){//Need to move this to an object
         if (weatherType.contains("clear")||weatherType.contains("sun")){
             return "fire,grass,ground";

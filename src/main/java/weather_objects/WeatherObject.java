@@ -6,34 +6,53 @@ package weather_objects;
 
 import classes.WeatherAPICall;
 import api_assets_weather.Response;
-import api_assets_weather.Location;
-import java.awt.event.MouseEvent;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 /**
  *
  * @author raphaelhicaro
  */
-public class WeatherObject extends WeatherAPICall{    
+public class WeatherObject extends WeatherAPICall{ 
+    /**
+     * gets the wind speed
+     * @param weatherData api response
+     * @param index api index
+     * @return double
+     */
     @Override
     public double windCall(Response weatherData, int index) {
         double temp = weatherData.getList()[index].getWind().getSpeed();
         return temp;
     }
 
+    /**
+     * gets the humidity level
+     * @param weatherData api response
+     * @param index api index
+     * @return int
+     */
     @Override
     public int humidityCall(Response weatherData, int index) {
         int temp = weatherData.getList()[index].getMain().getHumidity();
         return temp;
     }
 
+    /**
+     * gets the description of the weather
+     * @param weatherData api response
+     * @param index api index
+     * @return string
+     */
     @Override
     public String weatherCall(Response weatherData, int index) {
         String temp = weatherData.getList()[index].getWeather()[0].getDescription();
         return temp;
     }
     
+    /**
+     * converts from mph to kph
+     * @param value mph value
+     * @return double
+     */
     public double convertWindSpeedMetric(double value){
         return value*1.609;
     }

@@ -11,15 +11,26 @@ package forms;
 public class CityForm extends javax.swing.JPanel {
     private Pokeframe pokeframe;
     
+    /**
+     * Creates an instnace of CityForm
+     */
         public CityForm() {
         initComponents();
     }
 
+    /**
+     * get the name of the city form the text field
+     * @return String
+     */
     public String getCityName(){
         String temp = cityName.getText();
         return temp;
     }
-    
+   
+    /**
+     * sets pokeframe as the creator
+     * @param myCreator 
+     */
     public void setPokeframe(Pokeframe myCreator){
         pokeframe = myCreator;
     }
