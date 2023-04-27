@@ -287,7 +287,7 @@ public class Day3 extends javax.swing.JPanel {
 
         currentWeather.setText("Place Holder");
 
-        pokemonListLabel.setText("Pokemon Potentially Available:");
+        pokemonListLabel.setText("Pokémon Potentially Available:");
 
         pokemonSprite.setBackground(new java.awt.Color(0, 0, 0));
         pokemonSprite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));

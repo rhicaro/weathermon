@@ -40,13 +40,14 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                               <Component id="pokemonSprite" min="-2" pref="125" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="weatherSprite" min="-2" pref="150" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -109,7 +110,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="pokemonAvailable">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pokemon Available:"/>
+        <Property name="text" type="java.lang.String" value="Pok&#xe9;mon Available:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="currentWeatherLabel">

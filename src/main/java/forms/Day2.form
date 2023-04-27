@@ -249,7 +249,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="pokemonListLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pokemon Potentially Available:"/>
+        <Property name="text" type="java.lang.String" value="Pok&#xe9;mon Potentially Available:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="pokemonSprite">

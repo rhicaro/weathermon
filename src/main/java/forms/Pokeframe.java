@@ -163,7 +163,7 @@ public class Pokeframe extends javax.swing.JFrame {
             }
         });
 
-        tempChangeBtn.setText("Change to Celsius");
+        tempChangeBtn.setText("Change to Metric");
         tempChangeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tempChangeBtnActionPerformed(evt);
@@ -245,7 +245,7 @@ public class Pokeframe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void return2LastPanelBtn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_return2LastPanelBtn
-        if (stateNumber == 1 || stateNumber == 0){
+        if (stateNumber == 1 || stateNumber == 0 || stateNumber == 7){
             stateNumber -= 0;
         } else {
             stateNumber -= 1;
@@ -367,7 +367,7 @@ public class Pokeframe extends javax.swing.JFrame {
      * changes everything to metric system
      */
     public void change2Metric(){
-        tempChangeBtn.setText("Change to Farenheit");
+        tempChangeBtn.setText("Change to Imperial");
         day1.change2Metric();
         day2.change2Metric();
         day3.change2Metric();
@@ -380,7 +380,7 @@ public class Pokeframe extends javax.swing.JFrame {
      * changes everything to Imperial system
      */
     public void change2Imperial(){
-        tempChangeBtn.setText("Change to Celsius");
+        tempChangeBtn.setText("Change to Metric");
         day1.change2Imperial(weatherResponse, 0);
         day2.change2Imperial(weatherResponse, 7);
         day3.change2Imperial(weatherResponse, 15);
