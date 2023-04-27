@@ -33,7 +33,6 @@ public class Day1 extends javax.swing.JPanel {
 
     
     private ArrayList<String> pokemonNameList;
-//    private ArrayList<
     private String type1;
     private String type2;
     private String type3;
@@ -42,8 +41,6 @@ public class Day1 extends javax.swing.JPanel {
     private PokemonResponseName pokemonNameResponseType2;
     private PokemonResponseName pokemonNameResponseType3;
     private ArrayList<PokemonResponseName> pokemonTypeList;
-
-            
 
     //Cite this
     private static final DecimalFormat df = new DecimalFormat("0");
@@ -91,6 +88,7 @@ public class Day1 extends javax.swing.JPanel {
      */
     public void setPokeframe(Pokeframe myCreator){
         pokeframe = myCreator;
+        
     }
     
     /**
@@ -122,8 +120,7 @@ public class Day1 extends javax.swing.JPanel {
         minTemperature.setText(df.format(tempObj.tempCallLow(weatherResponse, index)));
         city.setText(cityObj.cityCall(weatherResponse));
         country.setText(cityObj.countryCall(weatherResponse));
-        date.setText(dateObj.dateCall(weatherResponse, index));
-        
+        date.setText(dateObj.dateCall(weatherResponse, index)); 
     }
     
     /**
@@ -133,7 +130,7 @@ public class Day1 extends javax.swing.JPanel {
      */
     public void setPokemonList(PokemonResponseName pokemonNameResp, DefaultListModel model){
         int numberOfPokemon = pokemonNameResp.getPokemonList().length;
-        for (int i=0; i<4; i++){
+        for (int i=0; i<5; i++){
             int randomIndex = rand.nextInt(numberOfPokemon);
             String pokemonName = pokemonNameResp.getPokemonList()[randomIndex].
                     getPokemon().getPokemonName();
@@ -248,7 +245,6 @@ public class Day1 extends javax.swing.JPanel {
         windSpeedType = new javax.swing.JLabel();
         humidity = new javax.swing.JLabel();
         currentWeather = new javax.swing.JLabel();
-        pokemonListLabel = new javax.swing.JLabel();
         pokemonSprite = new javax.swing.JLabel();
         weatherSprite = new javax.swing.JLabel();
         maxTemperatureLabel = new javax.swing.JLabel();
@@ -275,16 +271,18 @@ public class Day1 extends javax.swing.JPanel {
 
         temperature.setText("__.__");
 
-        temperatureType.setText("°Farenheit");
+        temperatureType.setText("°F");
 
         windLabel.setText("Wind Speed:");
 
-        pokemonList.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
+        pokemonList.setBorder(null);
+        pokemonList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         pokemonList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        pokemonList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         pokemonList.setAutoscrolls(false);
         pokemonList.setMaximumSize(new java.awt.Dimension(170, 170));
         pokemonList.setMinimumSize(new java.awt.Dimension(170, 170));
@@ -307,8 +305,6 @@ public class Day1 extends javax.swing.JPanel {
         humidity.setText("__");
 
         currentWeather.setText("Place Holder");
-
-        pokemonListLabel.setText("Pokémon Potentially Available:");
 
         pokemonSprite.setBackground(new java.awt.Color(0, 0, 0));
         pokemonSprite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
@@ -348,52 +344,47 @@ public class Day1 extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(maxTemperatureLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(maxTemperature)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(maxTemperatureType))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(minTemperatureLabel)
-                                        .addGap(8, 8, 8)
-                                        .addComponent(minTemperature)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(minTemperatureType))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(windLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(windspeed)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(windSpeedType))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(weatherLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(currentWeather))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(humidtyLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(humidity)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(percentageLabel))
-                                    .addComponent(pokemonListLabel)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(temperatureLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(temperature)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(temperatureType)))
-                                .addGap(3, 3, 3))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(maxTemperatureLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(maxTemperature)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(maxTemperatureType))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(minTemperatureLabel)
+                                .addGap(8, 8, 8)
+                                .addComponent(minTemperature)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(minTemperatureType))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(windLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(windspeed)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(windSpeedType))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(weatherLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(currentWeather))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(humidtyLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(humidity)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(percentageLabel))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(temperatureLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(temperature)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(temperatureType))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(21, 21, 21)
+                                .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(1, 1, 1))
+                                .addGap(45, 45, 45)
+                                .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(dateLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -405,8 +396,9 @@ public class Day1 extends javax.swing.JPanel {
                         .addGap(0, 0, 0)
                         .addComponent(locationComma)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(country)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(country)
+                        .addGap(3, 3, 3)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,15 +439,13 @@ public class Day1 extends javax.swing.JPanel {
                             .addComponent(minTemperature)
                             .addComponent(minTemperatureType))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pokemonListLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(locationLabel)
                             .addComponent(city)
                             .addComponent(locationComma)
-                            .addComponent(country))
+                            .addComponent(country)
+                            .addComponent(locationLabel))
                         .addGap(18, 18, 18)
                         .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
@@ -503,7 +493,6 @@ public class Day1 extends javax.swing.JPanel {
     private javax.swing.JLabel minTemperatureType;
     private javax.swing.JLabel percentageLabel;
     private javax.swing.JList<String> pokemonList;
-    private javax.swing.JLabel pokemonListLabel;
     private javax.swing.JLabel pokemonSprite;
     private javax.swing.JLabel temperature;
     private javax.swing.JLabel temperatureLabel;

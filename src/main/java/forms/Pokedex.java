@@ -177,6 +177,7 @@ public class Pokedex extends javax.swing.JPanel {
         description.setLineWrap(true);
         description.setRows(5);
         description.setWrapStyleWord(true);
+        description.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Description", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 0, 12))); // NOI18N
         jScrollPane1.setViewportView(description);
 
         nameLabel.setText("Pokémon Name:");
@@ -243,7 +244,7 @@ public class Pokedex extends javax.swing.JPanel {
                     .addComponent(type))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

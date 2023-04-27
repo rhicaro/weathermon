@@ -9,36 +9,31 @@ import pokemon_objects.*;
 import weather_objects.*;
 
 public class Pokeframe extends javax.swing.JFrame {
-    public int stateNumber;
-    public int buttonState;
+    private int stateNumber;
+    private int buttonState;
     private Response weatherResponse;
-    private PokemonResponseName pokeNameResponse;
     private String[] pokemonTypes;
-    private TemperatureObject tempObj;
     
-    private API_Response_Weather weatherResponseObject;
-    private API_Response_Pokemon pokemonResponseObject;
-    private PokemonDescriptionObject descriptionObj;
+    private final API_Response_Weather weatherResponseObject;
+    private final PokemonDescriptionObject descriptionObj;
             
-    private CityForm cityform;
-    private Day1 day1;
-    private Day2 day2;
-    private Day3 day3;
-    private Day4 day4;
-    private Day5 day5;
-    private PokemonList pokemonlist;
-    private Pokedex pokedex;
-    private ArrayList<JPanel> JPanelList;
+    private final CityForm cityform;
+    private final Day1 day1;
+    private final Day2 day2;
+    private final Day3 day3;
+    private final Day4 day4;
+    private final Day5 day5;
+    private final PokemonList pokemonlist;
+    private final Pokedex pokedex;
+    private final ArrayList<JPanel> JPanelList;
         
     public Pokeframe() {
         initComponents();
         stateNumber = 0;
         buttonState = 0;
         weatherResponse = null;
-        pokeNameResponse = null;
         pokemonTypes = null;
         weatherResponseObject = new API_Response_Weather();
-        pokemonResponseObject = new API_Response_Pokemon();
         descriptionObj = new PokemonDescriptionObject();
         
         cityform = new CityForm();
@@ -49,7 +44,6 @@ public class Pokeframe extends javax.swing.JFrame {
         day5 = new Day5();
         pokemonlist = new PokemonList();
         pokedex = new Pokedex();
-        tempObj = new TemperatureObject();
         
         JPanelList = new ArrayList<>();
         JPanelList.add(cityform);
@@ -309,7 +303,7 @@ public class Pokeframe extends javax.swing.JFrame {
             buttonState-=1;
         }
     }//GEN-LAST:event_tempChangeBtnActionPerformed
-    
+        
     /**
      * changes the scene (panel)
      * @param stateNumber state of the program
