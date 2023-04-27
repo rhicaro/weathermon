@@ -195,8 +195,8 @@ public class Day4 extends javax.swing.JPanel {
         double temp4 = tempObj.convert2Celsius(parseDouble(minTemperature.getText()));
         
         windSpeedType.setText("KPH");
-        maxTemperatureType.setText("°Celsius");
-        minTemperatureType.setText("°Celsius");
+        maxTemperatureType.setText("°C");
+        minTemperatureType.setText("°C");
         
         windspeed.setText(df.format(temp2));
         maxTemperature.setText(df.format(temp3));
@@ -214,8 +214,8 @@ public class Day4 extends javax.swing.JPanel {
         minTemperature.setText(df.format(tempObj.tempCallLow(weatherResponse, index)));
         
         windSpeedType.setText("MPH");
-        maxTemperatureType.setText("°Farenheit");
-        minTemperatureType.setText("°Farenheit");
+        maxTemperatureType.setText("°F");
+        minTemperatureType.setText("°F");
     }    
     
     @SuppressWarnings("unchecked")
@@ -304,9 +304,9 @@ public class Day4 extends javax.swing.JPanel {
 
         maxTemperature.setText("__");
 
-        maxTemperatureType.setText("°Farenheit");
+        maxTemperatureType.setText("°F");
 
-        minTemperatureType.setText("°Farenheit");
+        minTemperatureType.setText("°F");
 
         percentageLabel.setText("%");
 
@@ -424,7 +424,7 @@ public class Day4 extends javax.swing.JPanel {
                         .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(21, 21, Short.MAX_VALUE))
+                .addGap(14, 14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

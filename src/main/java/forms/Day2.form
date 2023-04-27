@@ -103,7 +103,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="dateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="date" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -155,7 +155,7 @@
                       <Component id="pokemonSprite" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="24" pref="21" max="32767" attributes="0"/>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -296,12 +296,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="maxTemperatureType">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xb0;Farenheit"/>
+        <Property name="text" type="java.lang.String" value="&#xb0;F"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="minTemperatureType">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xb0;Farenheit"/>
+        <Property name="text" type="java.lang.String" value="&#xb0;F"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="percentageLabel">
