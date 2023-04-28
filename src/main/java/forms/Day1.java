@@ -88,7 +88,10 @@ public class Day1 extends javax.swing.JPanel {
      */
     public void setPokeframe(Pokeframe myCreator){
         pokeframe = myCreator;
-        
+    }
+    
+    public void unselectList(){
+        pokemonList.clearSelection();
     }
     
     /**
@@ -101,6 +104,8 @@ public class Day1 extends javax.swing.JPanel {
         setWeatherInfo(weatherResponse, 0);
         setWeatherImage(weatherResponse);
         pokemonTypeList = setTypes(pokemonTypes, this.pokemonTypeList);
+//        model.clear();
+//        pokemonList.clearSelection();
         for (PokemonResponseName type: pokemonTypeList){
             setPokemonList(type, model);
         }
@@ -469,6 +474,8 @@ public class Day1 extends javax.swing.JPanel {
                 Logger.getLogger(Day1.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(Day1.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NullPointerException ex){
+                pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
             }
         }
     }//GEN-LAST:event_pokemonListValueChanged

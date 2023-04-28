@@ -1,12 +1,10 @@
 package forms;
 
-import api_assets_pokemon.*;
 import api_assets_weather.*;
 import api_response_classes.*;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import pokemon_objects.*;
-import weather_objects.*;
 
 public class Pokeframe extends javax.swing.JFrame {
     private int stateNumber;
@@ -267,8 +265,7 @@ public class Pokeframe extends javax.swing.JFrame {
             weatherResponse = weatherResponseObject.getResponse(cityLat, cityLon); //should now be accessible outside of the frame
             String weatherType = weatherResponse.getList()[0].getWeather()[0].getDescription();
             pokemonTypes = descriptionObj.checkPokemonType(weatherType).split(",");
-            stateNumber += 1;
-            changeState(stateNumber);
+            
             day1.updatePanel(weatherResponse, pokemonTypes);
             day2.updatePanel(weatherResponse, pokemonTypes);
             day3.updatePanel(weatherResponse, pokemonTypes);
@@ -278,7 +275,11 @@ public class Pokeframe extends javax.swing.JFrame {
             
             tempChangeBtn.setText("Convert to Celsius");
             buttonState=0;
+            
             change2Imperial();
+            
+            stateNumber += 1;
+            changeState(stateNumber);
             
         } else if (stateNumber != 0 && stateNumber < 6){
             stateNumber = 0;
