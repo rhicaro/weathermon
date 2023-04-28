@@ -281,7 +281,6 @@ public class Day1 extends javax.swing.JPanel {
         windLabel.setText("Wind Speed:");
 
         pokemonList.setBorder(null);
-        pokemonList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         pokemonList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -455,7 +454,7 @@ public class Day1 extends javax.swing.JPanel {
                         .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
