@@ -4,6 +4,7 @@ import api_assets_weather.*;
 import api_assets_pokemon.*;
 import api_response_classes.*;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.Double.parseDouble;
 import java.net.MalformedURLException;
@@ -90,10 +91,6 @@ public class Day1 extends javax.swing.JPanel {
         pokeframe = myCreator;
     }
     
-    public void unselectList(){
-        pokemonList.clearSelection();
-    }
-    
     /**
      * updates the panel when a new city is selected
      * @param weatherResponse1 weather response based on the city
@@ -103,9 +100,8 @@ public class Day1 extends javax.swing.JPanel {
         weatherResponse = weatherResponse1;
         setWeatherInfo(weatherResponse, 0);
         setWeatherImage(weatherResponse);
-        pokemonTypeList = setTypes(pokemonTypes, this.pokemonTypeList);
-//        model.clear();
-//        pokemonList.clearSelection();
+        pokemonTypeList = setTypes(pokemonTypes, this.pokemonTypeList);        
+        model.clear();
         for (PokemonResponseName type: pokemonTypeList){
             setPokemonList(type, model);
         }
@@ -311,6 +307,7 @@ public class Day1 extends javax.swing.JPanel {
         currentWeather.setText("Place Holder");
 
         pokemonSprite.setBackground(new java.awt.Color(0, 0, 0));
+        pokemonSprite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokeball.png"))); // NOI18N
         pokemonSprite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
         weatherSprite.setMaximumSize(new java.awt.Dimension(100, 100));
@@ -460,22 +457,16 @@ public class Day1 extends javax.swing.JPanel {
 
     private void pokemonListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pokemonListValueChanged
         String currentPokemon = pokemonList.getSelectedValue();
-        String pokemonURL = pokemonNameResponse.getPokemonResponseGeneral(currentPokemon).getSprite().getImageURL(); //set as a variable 
-        if (pokemonURL == null){
+        try {
+            String pokemonURL = pokemonNameResponse.getPokemonResponseGeneral(currentPokemon).getSprite().getImageURL(); //set as a variable 
+            url = new URL(pokemonURL);
+            BufferedImage image = ImageIO.read(url);
+            ImageIcon icon = new ImageIcon(image);//make an arrayList of imageIcon to make pictures load faster.
+            pokemonSprite.setIcon(icon);
+        } catch (MalformedURLException | FileNotFoundException ex) {
             pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
-        } else {
-            try {
-                url = new URL(pokemonURL);
-                BufferedImage image = ImageIO.read(url);
-                ImageIcon icon = new ImageIcon(image);//make an arrayList of imageIcon to make pictures load faster.
-                pokemonSprite.setIcon(icon);
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(Day1.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Day1.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NullPointerException ex){
-                pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
-            }
+        } catch (IOException | NullPointerException ex) {
+            pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
         }
     }//GEN-LAST:event_pokemonListValueChanged
 
