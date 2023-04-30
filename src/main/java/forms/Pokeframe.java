@@ -3,6 +3,7 @@ package forms;
 import api_assets_weather.*;
 import api_response_classes.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import pokemon_objects.*;
 
@@ -246,7 +247,7 @@ public class Pokeframe extends javax.swing.JFrame {
     }//GEN-LAST:event_return2LastPanelBtn
 
     private void nextPanelBtn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextPanelBtn
-        if (stateNumber == 7 || stateNumber == 6){
+        if (stateNumber == 7 || stateNumber == 6 || stateNumber ==0){
             stateNumber += 0;
         } else if (stateNumber == 6){
             enterBtn.setText("View Seleceted Pokemon");
@@ -259,10 +260,14 @@ public class Pokeframe extends javax.swing.JFrame {
     private void enterBtn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterBtn
         if (stateNumber == 0){
             String cityName = cityform.getCityName();
-            Location cityNameObj = weatherResponseObject.getLocationResp(cityName)[0];
-            double cityLat = cityNameObj.getLat();
-            double cityLon = cityNameObj.getLon();
-            weatherResponse = weatherResponseObject.getResponse(cityLat, cityLon); //should now be accessible outside of the frame
+            try {
+                Location cityNameObj = weatherResponseObject.getLocationResp(cityName)[0];
+                double cityLat = cityNameObj.getLat();
+                double cityLon = cityNameObj.getLon();
+                weatherResponse = weatherResponseObject.getResponse(cityLat, cityLon); //should now be accessible outside of the frame
+            } catch (NullPointerException | ArrayIndexOutOfBoundsException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Please Enter a Valid City Name");
+            } 
             String weatherType = weatherResponse.getList()[0].getWeather()[0].getDescription();
             pokemonTypes = descriptionObj.checkPokemonType(weatherType).split(",");
             

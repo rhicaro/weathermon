@@ -8,6 +8,7 @@ import api_assets_pokemon.PokemonResponseName;
 import api_assets_weather.Response;
 import api_response_classes.API_Response_Pokemon;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -87,8 +88,8 @@ public class PokemonList extends javax.swing.JPanel {
         weatherResponse = weatherResponse2;
         pokemonTypes = pokemonTypes2;
         setWeatherImage(weatherResponse);
-        
         pokemonTypeList = setTypes(pokemonTypes, pokemonTypeList);
+        model.clear();
         for (PokemonResponseName type: pokemonTypeList){
             setPokemonList(type, model);
         }
@@ -202,56 +203,54 @@ public class PokemonList extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pokemonListAll, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
+                .addComponent(pokemonListAll, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(currentWeatherLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(weather)
-                        .addGap(14, 14, 14))))
+                        .addComponent(weather))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pokemonListAll)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(pokemonListAll, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(currentWeatherLabel)
                             .addComponent(weather))
                         .addGap(18, 18, 18)
                         .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(38, 38, 38))
+                        .addGap(18, 18, 18)
+                        .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void pokemonListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pokemonListValueChanged
-         String currentPokemon = pokemonList.getSelectedValue();
-        String pokemonURL = pokemonNameResponse.getPokemonResponseGeneral(currentPokemon).getSprite().getImageURL();
-        if (pokemonURL == null){
+        String currentPokemon = pokemonList.getSelectedValue();
+        try {
+            String pokemonURL = pokemonNameResponse.getPokemonResponseGeneral(currentPokemon).getSprite().getImageURL(); //set as a variable 
+            url = new URL(pokemonURL);
+            BufferedImage image = ImageIO.read(url);
+            ImageIcon icon = new ImageIcon(image);//make an arrayList of imageIcon to make pictures load faster.
+            pokemonSprite.setIcon(icon);
+        } catch (MalformedURLException | FileNotFoundException ex) {
             pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
-        } else {
-            try {
-                url = new URL(pokemonURL);
-                BufferedImage image = ImageIO.read(url);
-                ImageIcon icon = new ImageIcon(image);
-                pokemonSprite.setIcon(icon);
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(Day5.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Day5.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (IOException | NullPointerException ex) {
+            pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
         }
     }//GEN-LAST:event_pokemonListValueChanged
 
