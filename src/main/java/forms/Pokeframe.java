@@ -2,9 +2,12 @@ package forms;
 
 import api_assets_weather.*;
 import api_response_classes.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import pokemon_objects.*;
 
 public class Pokeframe extends javax.swing.JFrame {
@@ -266,8 +269,13 @@ public class Pokeframe extends javax.swing.JFrame {
                 double cityLon = cityNameObj.getLon();
                 weatherResponse = weatherResponseObject.getResponse(cityLat, cityLon); //should now be accessible outside of the frame
             } catch (NullPointerException | ArrayIndexOutOfBoundsException | NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Please Enter a Valid City Name");
-            } 
+               //Timer code from http://www.java2s.com/Tutorials/Java/Swing_How_to/Timer/Update_JLabel_with_Timer.htm 
+              cityform.setErrorMsg("Please Enter a Valid City Name");
+               new Timer(2000, (ActionEvent e) -> {
+                   cityform.setErrorMsg("");
+               }).start();
+               //End of timer code
+            }
             String weatherType = weatherResponse.getList()[0].getWeather()[0].getDescription();
             pokemonTypes = descriptionObj.checkPokemonType(weatherType).split(",");
             
