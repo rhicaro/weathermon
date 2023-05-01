@@ -46,7 +46,7 @@ public class Day4 extends javax.swing.JPanel {
     private PokemonResponseName pokemonNameResponseType3;
     private ArrayList<PokemonResponseName> pokemonTypeList;
 
-            
+    private ArrayList<ImageIcon> pokemonIcons;
 
     //Cite this
     private static final DecimalFormat df = new DecimalFormat("0");
@@ -77,6 +77,8 @@ public class Day4 extends javax.swing.JPanel {
         rand = new Random();
         
         model.clear();
+        
+        pokemonIcons = new ArrayList<>();
     }
     
     /**
@@ -104,6 +106,8 @@ public class Day4 extends javax.swing.JPanel {
         setWeatherImage(weatherResponse);
         pokemonTypeList = setTypes(pokemonTypes, this.pokemonTypeList);
         model.clear();
+        pokemonIcons.clear();
+        pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
         for (PokemonResponseName type: pokemonTypeList){
             setPokemonList(type, model);
         }
@@ -132,12 +136,14 @@ public class Day4 extends javax.swing.JPanel {
      * @param model UI list
      */
     public void setPokemonList(PokemonResponseName pokemonNameResp, DefaultListModel model){
+        ImageIcon placeHolder = new ImageIcon("src/main/resources/pokeball.png");
         int numberOfPokemon = pokemonNameResp.getPokemonList().length;
         for (int i=0; i<4; i++){
             int randomIndex = rand.nextInt(numberOfPokemon);
             String pokemonName = pokemonNameResp.getPokemonList()[randomIndex].
                     getPokemon().getPokemonName();
             pokemonNameList.add(pokemonName);
+            pokemonIcons.add(placeHolder);
         }
         model.addAll(pokemonNameList);
         pokemonNameList.clear();
@@ -431,18 +437,34 @@ public class Day4 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pokemonListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pokemonListValueChanged
-        String currentPokemon = pokemonList.getSelectedValue();
-        try {
-            String pokemonURL = pokemonNameResponse.getPokemonResponseGeneral(currentPokemon).getSprite().getImageURL(); //set as a variable 
-            url = new URL(pokemonURL);
-            BufferedImage image = ImageIO.read(url);
-            ImageIcon icon = new ImageIcon(image);//make an arrayList of imageIcon to make pictures load faster.
-            pokemonSprite.setIcon(icon);
-        } catch (MalformedURLException | FileNotFoundException ex) {
-            pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
-        } catch (IOException | NullPointerException ex) {
-            pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
+        if (pokemonList.getSelectedIndex() < 0) {
+            return;
         }
+        
+        String currentPokemon = pokemonList.getSelectedValue();
+        ImageIcon pokeIcon = pokemonIcons.get(pokemonList.getSelectedIndex());
+        
+        pokemonSprite.setIcon(pokeIcon);
+        if (!pokeIcon.toString().equalsIgnoreCase("src/main/resources/pokeball.png")) {
+            return;
+        }
+        
+        Runnable myThread = () ->
+            {
+            try {
+                String pokemonURL = pokemonNameResponse.getPokemonResponseGeneral(currentPokemon).getSprite().getImageURL(); //set as a variable 
+                url = new URL(pokemonURL);
+                BufferedImage image = ImageIO.read(url);
+                ImageIcon icon = new ImageIcon(image);//make an arrayList of imageIcon to make pictures load faster.
+                pokemonIcons.set(pokemonList.getSelectedIndex(), icon);
+                pokemonSprite.setIcon(icon);
+            
+                } catch (IOException | NullPointerException ex) {
+                    System.out.println(ex);
+                }
+            };
+        Thread run = new Thread(myThread);
+        run.start();
     }//GEN-LAST:event_pokemonListValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
