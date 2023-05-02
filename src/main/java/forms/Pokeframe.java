@@ -3,9 +3,7 @@ package forms;
 import api_assets_weather.*;
 import api_response_classes.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import pokemon_objects.*;
@@ -277,7 +275,9 @@ public class Pokeframe extends javax.swing.JFrame {
                //End of timer code
             }
             String weatherType = weatherResponse.getList()[0].getWeather()[0].getDescription();
+            System.out.println(descriptionObj.checkPokemonType(weatherType));
             pokemonTypes = descriptionObj.checkPokemonType(weatherType).split(",");
+            
             
             day1.updatePanel(weatherResponse, pokemonTypes);
             day2.updatePanel(weatherResponse, pokemonTypes);
