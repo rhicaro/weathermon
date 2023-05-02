@@ -44,7 +44,6 @@ public class Day3 extends javax.swing.JPanel {
 
     //Cite this
     private static final DecimalFormat df = new DecimalFormat("0");
-    private static final DecimalFormat df2 = new DecimalFormat("0.00");
     
     /**
      * Creates new form Day1
@@ -76,24 +75,12 @@ public class Day3 extends javax.swing.JPanel {
     }
     
     /**
-     * sets pokeframe as the creator
-     * @param myCreator 
-     */
-    public void setPokeframe(Pokeframe myCreator){
-        pokeframe = myCreator;
-    }
-    
-    public void resetList(){
-        pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
-        pokemonList.clearSelection();
-    }
-    
-    /**
      * updates the panel when a new city is selected
      * @param weatherResponse1 weather response based on the city
      * @param pokemonTypes list of elements
      */
-    public void updatePanel(Response weatherResponse1, String[] pokemonTypes){
+    public void updatePanel(Response weatherResponse1, String[] pokemonTypes){        
+        pokemonTypeList.clear();
         weatherResponse = weatherResponse1;
         setWeatherInfo(weatherResponse, 15);
         setWeatherImage(weatherResponse);

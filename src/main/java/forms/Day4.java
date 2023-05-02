@@ -1,30 +1,22 @@
-    package forms;
+package forms;
 
 import api_assets_weather.*;
 import api_assets_pokemon.*;
 import api_response_classes.*;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.Double.parseDouble;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import weather_objects.*;
-import pokemon_objects.*;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 
 public class Day4 extends javax.swing.JPanel {
-    private Pokeframe pokeframe;
-    
     private Response weatherResponse;
     private String[] pokemonTypes;
     private TemperatureObject tempObj;
@@ -82,25 +74,12 @@ public class Day4 extends javax.swing.JPanel {
     }
     
     /**
-     * sets pokeframe as the creator
-     * @param myCreator 
-     */
-
-    public void setPokeframe(Pokeframe myCreator){
-        pokeframe = myCreator;
-    }
-    
-    public void resetList(){
-        pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
-        pokemonList.clearSelection();
-    }
-    
-    /**
      * updates the panel when a new city is selected
      * @param weatherResponse1 weather response based on the city
      * @param pokemonTypes list of elements
      */
     public void updatePanel(Response weatherResponse1, String[] pokemonTypes){
+        pokemonTypeList.clear();
         weatherResponse = weatherResponse1;
         setWeatherInfo(weatherResponse, 23);
         setWeatherImage(weatherResponse);

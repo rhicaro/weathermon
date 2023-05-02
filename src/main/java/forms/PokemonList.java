@@ -1,20 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package forms;
 
 import api_assets_pokemon.PokemonResponseName;
 import api_assets_weather.Response;
 import api_response_classes.API_Response_Pokemon;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -25,7 +17,6 @@ import weather_objects.WeatherObject;
  * @author raphaelhicaro
  */
 public class PokemonList extends javax.swing.JPanel {
-    private Pokeframe pokeframe;
     private Response weatherResponse;
     private String[] pokemonTypes;
     private WeatherObject weatherObj;
@@ -68,14 +59,6 @@ public class PokemonList extends javax.swing.JPanel {
     }
     
     /**
-     * sets the creator as pokeframe
-     * @param myCreator 
-     */
-    public void setPokeframe(Pokeframe myCreator){
-        pokeframe = myCreator;
-    }
-    
-    /**
      * gets the name fo the selected pokemon
      * @return 
      */
@@ -89,6 +72,7 @@ public class PokemonList extends javax.swing.JPanel {
      * @param pokemonTypes2 string of pokemon type
      */
     public void updatePanel(Response weatherResponse2, String[] pokemonTypes2){
+        pokemonTypeList.clear();
         weatherResponse = weatherResponse2;
         pokemonTypes = pokemonTypes2;
         setWeatherImage(weatherResponse);

@@ -8,11 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import pokemon_objects.*;
 
-public class Pokeframe extends javax.swing.JFrame {
+public final class Pokeframe extends javax.swing.JFrame {
     private int stateNumber;
     private int buttonState;
     private Response weatherResponse;
-    private String[] pokemonTypes;
+//    private String[] pokemonTypes;
     
     private final API_Response_Weather weatherResponseObject;
     private final PokemonDescriptionObject descriptionObj;
@@ -32,7 +32,7 @@ public class Pokeframe extends javax.swing.JFrame {
         stateNumber = 0;
         buttonState = 0;
         weatherResponse = null;
-        pokemonTypes = null;
+//        pokemonTypes = null;
         weatherResponseObject = new API_Response_Weather();
         descriptionObj = new PokemonDescriptionObject();
         
@@ -54,14 +54,6 @@ public class Pokeframe extends javax.swing.JFrame {
         JPanelList.add(day5);
         JPanelList.add(pokemonlist);
         JPanelList.add(pokedex);
-        
-        cityform.setPokeframe(this);//use array list
-        day1.setPokeframe(this);
-        day2.setPokeframe(this);
-        day3.setPokeframe(this);
-        day4.setPokeframe(this);
-        day5.setPokeframe(this);
-        pokemonlist.setPokeframe(this);
         
         for (JPanel panel:JPanelList){
             panel.setSize(400,400);
@@ -274,17 +266,24 @@ public class Pokeframe extends javax.swing.JFrame {
                }).start();
                //End of timer code
             }
-            String weatherType = weatherResponse.getList()[0].getWeather()[0].getDescription();
-            System.out.println(descriptionObj.checkPokemonType(weatherType));
-            pokemonTypes = descriptionObj.checkPokemonType(weatherType).split(",");
-            
-            
-            day1.updatePanel(weatherResponse, pokemonTypes);
-            day2.updatePanel(weatherResponse, pokemonTypes);
-            day3.updatePanel(weatherResponse, pokemonTypes);
-            day4.updatePanel(weatherResponse, pokemonTypes);
-            day5.updatePanel(weatherResponse, pokemonTypes);
-            pokemonlist.updatePanel(weatherResponse, pokemonTypes);
+            String weatherType1 = weatherResponse.getList()[0].getWeather()[0].getDescription();
+            String weatherType2 = weatherResponse.getList()[7].getWeather()[0].getDescription();
+            String weatherType3 = weatherResponse.getList()[15].getWeather()[0].getDescription();
+            String weatherType4 = weatherResponse.getList()[23].getWeather()[0].getDescription();
+            String weatherType5 = weatherResponse.getList()[31].getWeather()[0].getDescription();
+
+            String[] pokemonTypes1 = descriptionObj.checkPokemonType(weatherType1).split(",");
+            String[] pokemonTypes2 = descriptionObj.checkPokemonType(weatherType2).split(",");
+            String[] pokemonTypes3 = descriptionObj.checkPokemonType(weatherType3).split(",");
+            String[] pokemonTypes4 = descriptionObj.checkPokemonType(weatherType4).split(",");
+            String[] pokemonTypes5 = descriptionObj.checkPokemonType(weatherType5).split(",");
+     
+            day1.updatePanel(weatherResponse, pokemonTypes1);
+            day2.updatePanel(weatherResponse, pokemonTypes2);
+            day3.updatePanel(weatherResponse, pokemonTypes3);
+            day4.updatePanel(weatherResponse, pokemonTypes4);
+            day5.updatePanel(weatherResponse, pokemonTypes5);
+            pokemonlist.updatePanel(weatherResponse, pokemonTypes1);
             
             tempChangeBtn.setText("Convert to Celsius");
             buttonState=0;

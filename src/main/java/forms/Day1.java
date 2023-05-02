@@ -1,27 +1,21 @@
-    package forms;
+package forms;
 
 import api_assets_weather.*;
 import api_assets_pokemon.*;
 import api_response_classes.*;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.Double.parseDouble;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import weather_objects.*;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class Day1 extends javax.swing.JPanel {
-    private Pokeframe pokeframe;
-    
     private Response weatherResponse;
     private String[] pokemonTypes;
     private TemperatureObject tempObj;
@@ -79,32 +73,16 @@ public class Day1 extends javax.swing.JPanel {
     }
     
     /**
-     * gets the temperature from the temperature label
-     * @return double
-     */
-    public double getTemp(){
-        double temp = parseDouble(temperature.getText());
-        return temp;
-    }
-      
-    /**
-     * sets pokeframe as the creator
-     * @param myCreator 
-     */
-    public void setPokeframe(Pokeframe myCreator){
-        pokeframe = myCreator;
-    }
-    
-    /**
      * updates the panel when a new city is selected
      * @param weatherResponse1 weather response based on the city
      * @param pokemonTypes list of elements
      */
     public void updatePanel(Response weatherResponse1, String[] pokemonTypes){
+        pokemonTypeList.clear();
         weatherResponse = weatherResponse1;
         setWeatherInfo(weatherResponse, 0);
         setWeatherImage(weatherResponse);
-        pokemonTypeList = setTypes(pokemonTypes, this.pokemonTypeList);        
+        pokemonTypeList = setTypes(pokemonTypes, this.pokemonTypeList); 
         model.clear();
         pokemonIcons.clear();
         pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
@@ -160,7 +138,9 @@ public class Day1 extends javax.swing.JPanel {
             type1 = pokemonTypes[0];
             type2 = pokemonTypes[1];
             pokemonNameResponseType1 = pokemonNameResponse.getPokemonResponseName(type1);
+
             pokemonNameResponseType2 = pokemonNameResponse.getPokemonResponseName(type2);
+
             pokemonTypeList.add(pokemonNameResponseType1);
             pokemonTypeList.add(pokemonNameResponseType2);
             return pokemonTypeList;
@@ -171,6 +151,7 @@ public class Day1 extends javax.swing.JPanel {
             pokemonNameResponseType1 = pokemonNameResponse.getPokemonResponseName(type1);
             pokemonNameResponseType2 = pokemonNameResponse.getPokemonResponseName(type2);
             pokemonNameResponseType3 = pokemonNameResponse.getPokemonResponseName(type3);
+
             pokemonTypeList.add(pokemonNameResponseType1);
             pokemonTypeList.add(pokemonNameResponseType2);
             pokemonTypeList.add(pokemonNameResponseType3);

@@ -17,8 +17,6 @@ import javax.swing.ImageIcon;
 
 
 public class Day5 extends javax.swing.JPanel {
-    private Pokeframe pokeframe;
-    
     private Response weatherResponse;
     private String[] pokemonTypes;
     private TemperatureObject tempObj;
@@ -76,19 +74,12 @@ public class Day5 extends javax.swing.JPanel {
     }
     
     /**
-     * sets pokeframe as the creator
-     * @param myCreator 
-     */
-    public void setPokeframe(Pokeframe myCreator){
-        pokeframe = myCreator;
-    }
-    
-    /**
      * updates the panel when a new city is selected
      * @param weatherResponse1 weather response based on the city
      * @param pokemonTypes list of elements
      */
     public void updatePanel(Response weatherResponse1, String[] pokemonTypes){
+        pokemonTypeList.clear();
         weatherResponse = weatherResponse1;
         setWeatherInfo(weatherResponse, 31);
         setWeatherImage(weatherResponse);
