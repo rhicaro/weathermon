@@ -12,7 +12,7 @@ public final class Pokeframe extends javax.swing.JFrame {
     private int stateNumber;
     private int buttonState;
     private Response weatherResponse;
-//    private String[] pokemonTypes;
+    private String[] pokemonTypes;
     
     private final API_Response_Weather weatherResponseObject;
     private final PokemonDescriptionObject descriptionObj;
@@ -32,7 +32,7 @@ public final class Pokeframe extends javax.swing.JFrame {
         stateNumber = 0;
         buttonState = 0;
         weatherResponse = null;
-//        pokemonTypes = null;
+        pokemonTypes = null;
         weatherResponseObject = new API_Response_Weather();
         descriptionObj = new PokemonDescriptionObject();
         
@@ -254,14 +254,16 @@ public final class Pokeframe extends javax.swing.JFrame {
         if (stateNumber == 0){
             String cityName = cityform.getCityName();
             try {
+                System.out.println(cityName);
                 Location cityNameObj = weatherResponseObject.getLocationResp(cityName)[0];
+                System.out.println(cityNameObj);
                 double cityLat = cityNameObj.getLat();
                 double cityLon = cityNameObj.getLon();
                 weatherResponse = weatherResponseObject.getResponse(cityLat, cityLon); //should now be accessible outside of the frame
             } catch (NullPointerException | ArrayIndexOutOfBoundsException |java.lang.NoSuchMethodError| NumberFormatException ex) {
                //Timer code from http://www.java2s.com/Tutorials/Java/Swing_How_to/Timer/Update_JLabel_with_Timer.htm 
                 cityform.setErrorMsg("Please Enter a Valid City Name");
-                new Timer(4000, (ActionEvent e) -> {
+                new Timer(3000, (ActionEvent e) -> {
                     cityform.setErrorMsg("");
                }).start();
                //End of timer code

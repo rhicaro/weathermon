@@ -17,8 +17,7 @@ import javax.swing.ImageIcon;
 
 
 public class Day2 extends javax.swing.JPanel {
-        private Response weatherResponse;
-    private String[] pokemonTypes;
+    private Response weatherResponse;
     private TemperatureObject tempObj;
     private CityObject cityObj;
     private DateObject dateObj;
@@ -40,9 +39,9 @@ public class Day2 extends javax.swing.JPanel {
 
     private ArrayList<ImageIcon> pokemonIcons;
 
-    //Cite this
+    //code from https://pandas.pydata.org/docs/reference/api/pandas.io.formats.style.Styler.format.html
     private static final DecimalFormat df = new DecimalFormat("0");
-    private static final DecimalFormat df2 = new DecimalFormat("0.00");
+    //end of cited code
     
     /**
      * Creates new form Day1
@@ -56,7 +55,6 @@ public class Day2 extends javax.swing.JPanel {
         dateObj = new DateObject();
         
         weatherResponse = null;
-        pokemonTypes = null;
                 
         pokemonTypeList = new ArrayList<>();
         pokemonNameResponseType1 = new PokemonResponseName();
@@ -431,7 +429,7 @@ public class Day2 extends javax.swing.JPanel {
         if (!pokeIcon.toString().equalsIgnoreCase("src/main/resources/pokeball.png")) {
             return;
         }
-        
+        //code from https://www.w3schools.com/java/java_threads.asp
         Runnable myThread = () ->
             {
             try {
@@ -448,6 +446,7 @@ public class Day2 extends javax.swing.JPanel {
             };
         Thread run = new Thread(myThread);
         run.start();
+        //end of code
     }//GEN-LAST:event_pokemonListValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

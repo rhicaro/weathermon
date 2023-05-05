@@ -30,7 +30,6 @@ public class Pokedex extends javax.swing.JPanel {
     private PokemonPhysicalObject physicalObj;
     private API_Response_Pokemon pokedexResponse;
     
-    private static final DecimalFormat df = new DecimalFormat("0");
     private static final DecimalFormat df2 = new DecimalFormat("0.00");
     private URL url;
     
@@ -100,7 +99,7 @@ public class Pokedex extends javax.swing.JPanel {
             try {
                 url = new URL(pokemonURL);
                 BufferedImage image = ImageIO.read(url);
-                ImageIcon icon = new ImageIcon(image);//make an arrayList of imageIcon to make pictures load faster.
+                ImageIcon icon = new ImageIcon(image);
                 pokemonSprite.setIcon(icon);
             } catch (MalformedURLException ex) {
                 Logger.getLogger(Day1.class.getName()).log(Level.SEVERE, null, ex);

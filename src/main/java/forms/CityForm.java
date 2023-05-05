@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package forms;
 
 /**
@@ -9,10 +5,9 @@ package forms;
  * @author raphaelhicaro
  */
 public class CityForm extends javax.swing.JPanel {
-    private Pokeframe pokeframe;
     
     /**
-     * Creates an instnace of CityForm
+     * Creates an instance of CityForm
      */
         public CityForm() {
         initComponents();
@@ -30,14 +25,7 @@ public class CityForm extends javax.swing.JPanel {
     public void setErrorMsg(String msg){
         errorMsg.setText(msg);
     }
-   
-    /**
-     * sets pokeframe as the creator
-     * @param myCreator 
-     */
-    public void setPokeframe(Pokeframe myCreator){
-        pokeframe = myCreator;
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -17,7 +17,6 @@ import javax.swing.ImageIcon;
 
 public class Day1 extends javax.swing.JPanel {
     private Response weatherResponse;
-    private String[] pokemonTypes;
     private TemperatureObject tempObj;
     private CityObject cityObj;
     private DateObject dateObj;
@@ -39,9 +38,10 @@ public class Day1 extends javax.swing.JPanel {
     
     private ArrayList<ImageIcon> pokemonIcons;
 
-    //Cite this
+    //code from https://pandas.pydata.org/docs/reference/api/pandas.io.formats.style.Styler.format.html
     private static final DecimalFormat df = new DecimalFormat("0");
     private static final DecimalFormat df2 = new DecimalFormat("0.00");
+    //end of cited code
     
     /**
      * Creates new form Day1
@@ -54,9 +54,7 @@ public class Day1 extends javax.swing.JPanel {
         cityObj = new CityObject();
         dateObj = new DateObject();
         
-        weatherResponse = null;
-        pokemonTypes = null;
-                
+        weatherResponse = null;                
         pokemonTypeList = new ArrayList<>();
         pokemonNameResponseType1 = new PokemonResponseName();
         pokemonNameResponseType2 = new PokemonResponseName();
@@ -138,9 +136,7 @@ public class Day1 extends javax.swing.JPanel {
             type1 = pokemonTypes[0];
             type2 = pokemonTypes[1];
             pokemonNameResponseType1 = pokemonNameResponse.getPokemonResponseName(type1);
-
             pokemonNameResponseType2 = pokemonNameResponse.getPokemonResponseName(type2);
-
             pokemonTypeList.add(pokemonNameResponseType1);
             pokemonTypeList.add(pokemonNameResponseType2);
             return pokemonTypeList;
@@ -151,7 +147,6 @@ public class Day1 extends javax.swing.JPanel {
             pokemonNameResponseType1 = pokemonNameResponse.getPokemonResponseName(type1);
             pokemonNameResponseType2 = pokemonNameResponse.getPokemonResponseName(type2);
             pokemonNameResponseType3 = pokemonNameResponse.getPokemonResponseName(type3);
-
             pokemonTypeList.add(pokemonNameResponseType1);
             pokemonTypeList.add(pokemonNameResponseType2);
             pokemonTypeList.add(pokemonNameResponseType3);
@@ -458,7 +453,7 @@ public class Day1 extends javax.swing.JPanel {
         if (!pokeIcon.toString().equalsIgnoreCase("src/main/resources/pokeball.png")) {
             return;
         }
-        
+        //code from https://www.w3schools.com/java/java_threads.asp
         Runnable myThread = () ->
             {
             try {
@@ -475,6 +470,7 @@ public class Day1 extends javax.swing.JPanel {
             };
         Thread run = new Thread(myThread);
         run.start();
+        //end of code
     }//GEN-LAST:event_pokemonListValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
