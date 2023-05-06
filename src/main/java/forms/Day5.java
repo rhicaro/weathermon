@@ -14,30 +14,32 @@ import weather_objects.*;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import pokemon_objects.PokemonDescriptionObject;
 
 
 public class Day5 extends javax.swing.JPanel {
     private Response weatherResponse;
-    private TemperatureObject tempObj;
-    private CityObject cityObj;
-    private DateObject dateObj;
-    private WeatherObject weatherObj;
-    private DefaultListModel model;
-    private Random rand;
+    private final TemperatureObject tempObj;
+    private final CityObject cityObj;
+    private final DateObject dateObj;
+    private final WeatherObject weatherObj;
+    private final DefaultListModel model;
+    private final PokemonDescriptionObject descriptionObj;
+    private final Random rand;
     URL url;
 
     
-    private ArrayList<String> pokemonNameList;
+    private final ArrayList<String> pokemonNameList;
     private String type1;
     private String type2;
     private String type3;
-    private API_Response_Pokemon pokemonNameResponse;
+    private final API_Response_Pokemon pokemonNameResponse;
     private PokemonResponseName pokemonNameResponseType1;
     private PokemonResponseName pokemonNameResponseType2;
     private PokemonResponseName pokemonNameResponseType3;
     private ArrayList<PokemonResponseName> pokemonTypeList;
 
-    private ArrayList<ImageIcon> pokemonIcons;
+    private final ArrayList<ImageIcon> pokemonIcons;
 
     //code from https://pandas.pydata.org/docs/reference/api/pandas.io.formats.style.Styler.format.html
     private static final DecimalFormat df = new DecimalFormat("0");
@@ -53,7 +55,8 @@ public class Day5 extends javax.swing.JPanel {
         weatherObj = new WeatherObject();
         cityObj = new CityObject();
         dateObj = new DateObject();
-        
+        descriptionObj = new PokemonDescriptionObject();
+
         weatherResponse = null;
                 
         pokemonTypeList = new ArrayList<>();
@@ -117,8 +120,7 @@ public class Day5 extends javax.swing.JPanel {
         int numberOfPokemon = pokemonNameResp.getPokemonList().length;
         for (int i=0; i<4; i++){
             int randomIndex = rand.nextInt(numberOfPokemon);
-            String pokemonName = pokemonNameResp.getPokemonList()[randomIndex].
-                    getPokemon().getPokemonName();
+            String pokemonName = descriptionObj.getName(pokemonNameResp, randomIndex);
             pokemonNameList.add(pokemonName);
             pokemonIcons.add(placeholder);
         }

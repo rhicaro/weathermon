@@ -39,7 +39,6 @@ api_assets_weather\Weather.class
 forms\PokemonList$2.class
 api_assets_weather\City.class
 forms\Pokeframe$1.class
-forms\Pokeframe$6.class
 api_assets_weather\Coord.class
 forms\Day3.class
 forms\Day5$1.class

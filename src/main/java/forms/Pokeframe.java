@@ -7,14 +7,15 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import pokemon_objects.*;
+import weather_objects.*;
 
 public final class Pokeframe extends javax.swing.JFrame {
     private int stateNumber;
     private int buttonState;
     private Response weatherResponse;
-    private String[] pokemonTypes;
     
     private final API_Response_Weather weatherResponseObject;
+    private final WeatherObject weatherObj;
     private final PokemonDescriptionObject descriptionObj;
             
     private final CityForm cityform;
@@ -26,15 +27,15 @@ public final class Pokeframe extends javax.swing.JFrame {
     private final PokemonList pokemonlist;
     private final Pokedex pokedex;
     private final ArrayList<JPanel> JPanelList;
-        
+
     public Pokeframe() {
         initComponents();
         stateNumber = 0;
         buttonState = 0;
         weatherResponse = null;
-        pokemonTypes = null;
         weatherResponseObject = new API_Response_Weather();
         descriptionObj = new PokemonDescriptionObject();
+        weatherObj = new WeatherObject();
         
         cityform = new CityForm();
         day1 = new Day1();
@@ -254,13 +255,11 @@ public final class Pokeframe extends javax.swing.JFrame {
         if (stateNumber == 0){
             String cityName = cityform.getCityName();
             try {
-                System.out.println(cityName);
                 Location cityNameObj = weatherResponseObject.getLocationResp(cityName)[0];
-                System.out.println(cityNameObj);
                 double cityLat = cityNameObj.getLat();
                 double cityLon = cityNameObj.getLon();
                 weatherResponse = weatherResponseObject.getResponse(cityLat, cityLon); //should now be accessible outside of the frame
-            } catch (NullPointerException | ArrayIndexOutOfBoundsException |java.lang.NoSuchMethodError| NumberFormatException ex) {
+            } catch (java.lang.NullPointerException | ArrayIndexOutOfBoundsException |java.lang.NoSuchMethodError| NumberFormatException ex) {
                //Timer code from http://www.java2s.com/Tutorials/Java/Swing_How_to/Timer/Update_JLabel_with_Timer.htm 
                 cityform.setErrorMsg("Please Enter a Valid City Name");
                 new Timer(3000, (ActionEvent e) -> {
@@ -268,18 +267,19 @@ public final class Pokeframe extends javax.swing.JFrame {
                }).start();
                //End of timer code
             }
-            String weatherType1 = weatherResponse.getList()[0].getWeather()[0].getDescription();
-            String weatherType2 = weatherResponse.getList()[7].getWeather()[0].getDescription();
-            String weatherType3 = weatherResponse.getList()[15].getWeather()[0].getDescription();
-            String weatherType4 = weatherResponse.getList()[23].getWeather()[0].getDescription();
-            String weatherType5 = weatherResponse.getList()[31].getWeather()[0].getDescription();
+     
+            String weatherType1 = weatherObj.weatherCall(weatherResponse, 0);
+            String weatherType2 = weatherObj.weatherCall(weatherResponse, 7);
+            String weatherType3 = weatherObj.weatherCall(weatherResponse, 15);
+            String weatherType4 = weatherObj.weatherCall(weatherResponse, 23);
+            String weatherType5 = weatherObj.weatherCall(weatherResponse, 31);
 
             String[] pokemonTypes1 = descriptionObj.checkPokemonType(weatherType1).split(",");
             String[] pokemonTypes2 = descriptionObj.checkPokemonType(weatherType2).split(",");
             String[] pokemonTypes3 = descriptionObj.checkPokemonType(weatherType3).split(",");
             String[] pokemonTypes4 = descriptionObj.checkPokemonType(weatherType4).split(",");
             String[] pokemonTypes5 = descriptionObj.checkPokemonType(weatherType5).split(",");
-     
+            
             day1.updatePanel(weatherResponse, pokemonTypes1);
             day2.updatePanel(weatherResponse, pokemonTypes2);
             day3.updatePanel(weatherResponse, pokemonTypes3);
@@ -415,7 +415,8 @@ public final class Pokeframe extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Pokeframe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Pokeframe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);\
+            return;
         }
 
         /* Create and display the form */

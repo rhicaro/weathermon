@@ -21,6 +21,7 @@ public class PokemonList extends javax.swing.JPanel {
     private DefaultListModel model;
     private URL url;
     
+    private ArrayList<String> pokemonNameListTemp;
     private ArrayList<String> pokemonNameList;
     private String type1;
     private String type2;
@@ -47,6 +48,7 @@ public class PokemonList extends javax.swing.JPanel {
         pokemonNameResponseType2 = new PokemonResponseName();
         pokemonNameResponseType3 = new PokemonResponseName();
         pokemonNameList = new ArrayList<>();
+        pokemonNameListTemp = new ArrayList<>();
         pokemonList.setModel(model);      
         model.clear();
         
@@ -92,6 +94,7 @@ public class PokemonList extends javax.swing.JPanel {
             String pokemonName = pokemonNameResp.getPokemonList()[i].
                     getPokemon().getPokemonName();
             pokemonNameList.add(pokemonName); //Apparently pokemon list doesnt change 
+            pokemonNameListTemp.add(pokemonName);
             pokemonIcons.add(placeHolder);
         }
         model.addAll(pokemonNameList);
@@ -163,7 +166,6 @@ public class PokemonList extends javax.swing.JPanel {
         weather = new javax.swing.JLabel();
         pokemonSprite = new javax.swing.JLabel();
         weatherSprite = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
@@ -187,8 +189,6 @@ public class PokemonList extends javax.swing.JPanel {
         pokemonSprite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokeball.png"))); // NOI18N
         pokemonSprite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Types", "Fire", "Water", "Grass", "Rock", "Ground", "Steel", "Psychic", "Ghost", "Dark", "Normal", "Dragon", "Fighting", "Flying", "Ice", "Bug", "Poison", "Fairy", "Electric" }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,25 +198,19 @@ public class PokemonList extends javax.swing.JPanel {
                 .addComponent(pokemonListAll, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(58, 58, 58)
-                                .addComponent(weather))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(currentWeatherLabel)
-                                .addGap(13, 13, 13)))
-                        .addContainerGap(32, Short.MAX_VALUE))
+                        .addGap(58, 58, 58)
+                        .addComponent(weather))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addGap(45, 45, 45)
+                        .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(currentWeatherLabel)
+                        .addGap(13, 13, 13)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,8 +223,6 @@ public class PokemonList extends javax.swing.JPanel {
                 .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
@@ -275,7 +267,6 @@ public class PokemonList extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel currentWeatherLabel;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JList<String> pokemonList;
     private javax.swing.JScrollPane pokemonListAll;
     private javax.swing.JLabel pokemonSprite;
