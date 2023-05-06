@@ -1,10 +1,17 @@
-//needed for api
 package api_assets_weather;
-//JSON object
-public class Clouds { //same as json now
+
+/**
+ * Class made to retrieve the clouds data from the weather api
+ * @author Hicaro
+ */
+public class Clouds { 
     private int all;
 
-    public int getAll(){ //returns the cloud information
+    /**
+     * 
+     * @return int
+     */
+    public int getAll(){
         return this.all;
     }
 }

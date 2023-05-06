@@ -1,16 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package api_assets_pokemon;
 
 /**
- *
+ * Class made to get the name of the pokemon
  * @author raphaelhicaro
  */
 public class PokemonInner {
     private String name;
     
+    /**
+     * 
+     * @return String
+     */
     public String getPokemonName(){
         return this.name;
     }

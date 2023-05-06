@@ -4,6 +4,13 @@ import abstract_classes.PokemonAPICall;
 import api_assets_pokemon.*;
 
 public class PokemonDescriptionObject extends PokemonAPICall{
+    /**
+     * gets the name of the pokmon's type
+     * @param resp api response
+     * @param index indication of which type that is to be viewed since a pokemon
+     * can have multiple types
+     * @return String
+     */
     @Override
     public String getType(PokemonResponseGeneral resp, int index){
         return resp.getTypes()[index].getType().getTypeName();

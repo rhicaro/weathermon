@@ -1,8 +1,8 @@
 package abstract_classes;
 import api_assets_weather.Response;
 /**
- * Weather Information is the subject in this observer pattern
- * 
+ * Abstract Class made of methods for weather related objects so that they retrieve information 
+ * from the weather API
  */
 public abstract class WeatherAPICall{
     public abstract String cityCall(Response weatherData);

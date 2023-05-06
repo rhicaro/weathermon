@@ -1,5 +1,8 @@
 package abstract_classes;
-
+/**
+ * Abstract Class made of methods for pokemon related objects so that they retrieve information 
+ * from the pokemon API
+ */
 import api_assets_pokemon.*;
 
 public abstract class PokemonAPICall {

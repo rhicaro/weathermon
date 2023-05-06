@@ -1,17 +1,25 @@
-//needed for api
 package api_assets_weather;
-
-//JSON object
-
-public class Coord { //same as json now
+/**
+ * class made to receive the lat and lon of the city from the geolocation api
+ * @author Hicaro
+ */
+public class Coord { 
     private double lat;
     private double lon;
 
-    public double getLat(){ //returns the latitude
+    /**
+     * 
+     * @return double
+     */
+    public double getLat(){ 
         return this.lat;
     }
-
-    public double getLon(){ //returns the longitude
+    
+    /**
+     * 
+     * @return double
+     */
+    public double getLon(){ 
         return this.lon;
     }
 }

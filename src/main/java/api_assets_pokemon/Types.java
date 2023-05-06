@@ -5,12 +5,16 @@
 package api_assets_pokemon;
 
 /**
- *
+ * class made to retrieve the type of the pokemon
  * @author raphaelhicaro
  */
 public class Types {
     private TypesInner type;
     
+    /**
+     * 
+     * @return TypesInner 
+     */
     public TypesInner getType(){
         return this.type;
     }

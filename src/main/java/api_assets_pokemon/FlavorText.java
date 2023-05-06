@@ -1,21 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package api_assets_pokemon;
 
 /**
- *
- * @author raphaelhicaro
+ * Class made for the pokeAPI to receive the flavor text of the certain pokemon
+ * @author Hicaro
  */
 public class FlavorText {
     private String flavor_text;
     private FlavorTextInner language;
     
+    /**
+     * 
+     * @return String 
+     */
     public String getText(){
         return this.flavor_text;
     }
     
+    /**
+     * 
+     * @return FlavorTextInner 
+     */
     public FlavorTextInner getFlavorTextInner(){
         return language;
     }

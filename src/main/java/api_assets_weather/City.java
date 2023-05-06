@@ -1,6 +1,8 @@
-//Needed for api
 package api_assets_weather;
-//JSON object
+/**
+ * class made to get different aspects of the city
+ * @author Hicaro
+ */
 public class City {
     private int id;
     private String name;
@@ -9,15 +11,34 @@ public class City {
     private int timezone;
     private Coord coord;
 
-    public String getName(){ //returns the name of the city
+    /**
+     * 
+     * @return String 
+     */
+    public String getName(){ 
         return this.name;
     }
+    
+    /**
+     * 
+     * @return String 
+     */
     public String getCountry(){ //returns the country
         return this.country;
     }
+    
+    /**
+     * 
+     * @return int 
+     */
     public int getPopulation(){
         return this.population;
     }
+    
+    /**
+     * 
+     * @return int 
+     */
     public int getTime(){   //returns the time zone of the coordinates
         return this.timezone;
     }
