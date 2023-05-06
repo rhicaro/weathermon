@@ -55,8 +55,8 @@ public class Pokedex extends javax.swing.JPanel {
     
     /**
      * updates the pokedex with specific information about the pokemon
-     * @param responseDescription api response for flavor text
-     * @param responseGeneral api response for general information about pokemon
+     * @param responseDescription API response for flavor text
+     * @param responseGeneral API response for general information about pokemon
      * @param pokemonName name of pokemon
      */
     public void updatePokedex(PokemonResponseDescription responseDescription, 

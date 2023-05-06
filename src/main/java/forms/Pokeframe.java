@@ -1,5 +1,7 @@
 package forms;
 
+import day_panel_factory.DayPanel;
+import day_panel_factory.DayPanelFactory;
 import api_assets_weather.*;
 import api_response_classes.*;
 import java.awt.event.ActionEvent;
@@ -20,10 +22,10 @@ public final class Pokeframe extends javax.swing.JFrame {
             
     private final CityForm cityform;
     private final Day1 day1;
-    private final Day2 day2;
-    private final Day3 day3;
-    private final Day4 day4;
-    private final Day5 day5;
+    private final DayPanel day2;
+    private final DayPanel day3;
+    private final DayPanel day4;
+    private final DayPanel day5;
     private final PokemonList pokemonlist;
     private final Pokedex pokedex;
     private final ArrayList<JPanel> JPanelList;
@@ -42,10 +44,19 @@ public final class Pokeframe extends javax.swing.JFrame {
         
         cityform = new CityForm();
         day1 = new Day1();
-        day2 = new Day2();
-        day3 = new Day3();
-        day4 = new Day4();
-        day5 = new Day5();
+        
+        DayPanelFactory dayFactory1 = new DayPanelFactory(7);
+        day2 = dayFactory1.createPanel();
+
+        DayPanelFactory dayFactory2 = new DayPanelFactory(15);
+        day3 = dayFactory2.createPanel();
+        
+        DayPanelFactory dayFactory3 = new DayPanelFactory(23);
+        day4 = dayFactory3.createPanel();
+        
+        DayPanelFactory dayFactory4 = new DayPanelFactory(31);
+        day5 = dayFactory4.createPanel();
+        
         pokemonlist = new PokemonList();
         pokedex = new Pokedex();
         
@@ -393,11 +404,11 @@ public final class Pokeframe extends javax.swing.JFrame {
      */
     public void change2Imperial(){
         tempChangeBtn.setText("Change to Metric");
-        day1.change2Imperial(weatherResponse, 0);
-        day2.change2Imperial(weatherResponse, 7);
-        day3.change2Imperial(weatherResponse, 15);
-        day4.change2Imperial(weatherResponse, 23);
-        day5.change2Imperial(weatherResponse, 31);
+        day1.change2Imperial(weatherResponse);
+        day2.change2Imperial(weatherResponse);
+        day3.change2Imperial(weatherResponse);
+        day4.change2Imperial(weatherResponse);
+        day5.change2Imperial(weatherResponse);
         pokedex.revertStats();
     }
     

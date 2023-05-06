@@ -102,8 +102,8 @@ public class Day1 extends javax.swing.JPanel {
     
     /**
      * sets the windows information
-     * @param weatherResponse weather api response
-     * @param index index in api
+     * @param weatherResponse weather API response
+     * @param index index in API
      */
     public void setWeatherInfo(Response weatherResponse, int index){
         temperature.setText(df2.format(tempObj.tempCall(weatherResponse, index)));
@@ -119,7 +119,7 @@ public class Day1 extends javax.swing.JPanel {
     
     /**
      * sets the list with pokemon
-     * @param pokemonNameResp api response 
+     * @param pokemonNameResp API response 
      * @param model UI list
      */
     public void setPokemonList(PokemonResponseName pokemonNameResp, DefaultListModel model){
@@ -166,7 +166,7 @@ public class Day1 extends javax.swing.JPanel {
     
     /**
      * sets the image
-     * @param weatherResponse api response
+     * @param weatherResponse API response
      */
     public void setWeatherImage(Response weatherResponse){ //changes the img based on the current weather
         String weatherDescription = weatherResponse.getList()[0].getWeather()[0].getDescription();
@@ -207,14 +207,13 @@ public class Day1 extends javax.swing.JPanel {
     
     /**
      * changes back to imperial
-     * @param weatherResponse api response
-     * @param index api index
+     * @param weatherResponse API response
      */
-    public void change2Imperial(Response weatherResponse, int index){
-        temperature.setText(df2.format(tempObj.tempCall(weatherResponse, index)));
-        windspeed.setText(df.format(weatherObj.windCall(weatherResponse, index)));
-        maxTemperature.setText(df.format(tempObj.tempCallHigh(weatherResponse, index)));
-        minTemperature.setText(df.format(tempObj.tempCallLow(weatherResponse, index)));
+    public void change2Imperial(Response weatherResponse){
+        temperature.setText(df2.format(tempObj.tempCall(weatherResponse, 0)));
+        windspeed.setText(df.format(weatherObj.windCall(weatherResponse, 0)));
+        maxTemperature.setText(df.format(tempObj.tempCallHigh(weatherResponse, 0)));
+        minTemperature.setText(df.format(tempObj.tempCallLow(weatherResponse, 0)));
         
         temperatureType.setText("°F");
         windSpeedType.setText("MPH");

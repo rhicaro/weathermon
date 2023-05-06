@@ -65,7 +65,7 @@ public class PokemonList extends javax.swing.JPanel {
     
     /**
      * updates the panel
-     * @param weatherResponse2 api response
+     * @param weatherResponse2 API response
      * @param pokemonTypes2 string of pokemon type
      */
     public void updatePanel(Response weatherResponse2, String[] pokemonTypes2){
@@ -84,7 +84,7 @@ public class PokemonList extends javax.swing.JPanel {
 
     /**
      * sets the list to all the pokemon with a similar typing
-     * @param pokemonNameResp api response
+     * @param pokemonNameResp API response
      * @param model list to be shown
      */
     public void setPokemonList(PokemonResponseName pokemonNameResp, DefaultListModel model){
@@ -102,7 +102,7 @@ public class PokemonList extends javax.swing.JPanel {
     }
 
     /**
-     * sets the arraylist to the 2-3 different types
+     * sets the array list to the 2-3 different types
      * @param pokemonTypes string array of types
      * @param pokemonTypeList arrayList to add to
      * @return 
@@ -131,8 +131,8 @@ public class PokemonList extends javax.swing.JPanel {
     }
     
     /**
-     * sets th weather image
-     * @param weatherResponse api response
+     * sets the weather image
+     * @param weatherResponse API response
      */
     public void setWeatherImage(Response weatherResponse){ //changes the img based on the current weather
         String weatherDescription = weatherResponse.getList()[0].getWeather()[0].getDescription();
