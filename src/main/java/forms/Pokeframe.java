@@ -93,6 +93,7 @@ public final class Pokeframe extends javax.swing.JFrame {
         tempChangeBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Pokédex 2.0");
         setResizable(false);
 
         pokedexPanel.setBackground(new java.awt.Color(255, 51, 51));
@@ -133,12 +134,12 @@ public final class Pokeframe extends javax.swing.JFrame {
             .addGroup(windowDisplayInfoLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(windowNameDisplay)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         windowDisplayInfoLayout.setVerticalGroup(
             windowDisplayInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, windowDisplayInfoLayout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(windowNameDisplay)
                 .addGap(28, 28, 28))
         );
