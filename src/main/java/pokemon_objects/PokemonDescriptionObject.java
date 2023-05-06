@@ -1,9 +1,14 @@
 package pokemon_objects;
 
+import abstract_classes.PokemonAPICall;
 import api_assets_pokemon.*;
-import classes.*;
 
 public class PokemonDescriptionObject extends PokemonAPICall{
+    @Override
+    public String getType(PokemonResponseGeneral resp, int index){
+        return resp.getTypes()[index].getType().getTypeName();
+    }
+    
     /**
      * gets the name of the pokemon
      * @param resp api response
@@ -12,8 +17,7 @@ public class PokemonDescriptionObject extends PokemonAPICall{
      */
     @Override
     public String getName(PokemonResponseName resp, int index) {
-        String temp = resp.getPokemonList()[index].getPokemon().getPokemonName();
-        return temp;
+        return resp.getPokemonList()[index].getPokemon().getPokemonName();
     }
 
     /**
@@ -23,8 +27,7 @@ public class PokemonDescriptionObject extends PokemonAPICall{
      */
     @Override
     public String getDescription(PokemonResponseDescription resp) {
-        String temp = englishDescription(resp);
-        return temp;
+        return englishDescription(resp);
     }
 
     /**
@@ -34,8 +37,7 @@ public class PokemonDescriptionObject extends PokemonAPICall{
      */
     @Override
     public String getSprite(PokemonResponseGeneral resp) {
-        String temp = resp.getSprite().getImageURL();
-        return temp;
+        return resp.getSprite().getImageURL();
     }
     
     /**

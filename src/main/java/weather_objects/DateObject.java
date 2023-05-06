@@ -4,7 +4,7 @@
  */
 package weather_objects;
 
-import classes.WeatherAPICall;
+import abstract_classes.WeatherAPICall;
 import api_assets_weather.Response;
 
 /**

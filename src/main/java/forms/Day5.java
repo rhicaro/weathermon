@@ -46,7 +46,7 @@ public class Day5 extends javax.swing.JPanel {
     //end of cited code
     
     /**
-     * Creates new form Day1
+     * Creates new form Day5
      */
     public Day5() {
         initComponents();

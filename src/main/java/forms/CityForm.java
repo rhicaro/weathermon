@@ -22,6 +22,10 @@ public class CityForm extends javax.swing.JPanel {
         return temp;
     }
     
+    /**
+     * gives the user an error message when the user decides to not give a proper city name
+     * @param msg 
+     */
     public void setErrorMsg(String msg){
         errorMsg.setText(msg);
     }

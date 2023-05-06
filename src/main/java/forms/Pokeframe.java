@@ -28,6 +28,9 @@ public final class Pokeframe extends javax.swing.JFrame {
     private final Pokedex pokedex;
     private final ArrayList<JPanel> JPanelList;
 
+    /**
+     * Creates a new instance of pokeframe
+     */
     public Pokeframe() {
         initComponents();
         stateNumber = 0;

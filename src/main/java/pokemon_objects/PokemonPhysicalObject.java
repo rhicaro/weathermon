@@ -1,6 +1,6 @@
 package pokemon_objects;
+import abstract_classes.PokemonAPICall;
 import api_assets_pokemon.*;
-import classes.*;
 
 
 public class PokemonPhysicalObject extends PokemonAPICall{
@@ -72,6 +72,11 @@ public class PokemonPhysicalObject extends PokemonAPICall{
     }
     @Override
     public String getSprite(PokemonResponseGeneral resp) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getType(PokemonResponseGeneral resp, int index) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

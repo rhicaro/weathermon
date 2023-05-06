@@ -1,4 +1,4 @@
-package classes;
+package abstract_classes;
 import api_assets_weather.Response;
 /**
  * Weather Information is the subject in this observer pattern

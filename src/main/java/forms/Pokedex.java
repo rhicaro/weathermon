@@ -8,8 +8,6 @@ import static java.lang.Double.parseDouble;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import pokemon_objects.*;
@@ -22,13 +20,16 @@ public class Pokedex extends javax.swing.JPanel {
     private PokemonResponseDescription pokemonDescriptionResponse;
     private PokemonResponseGeneral pokemonGeneralResponse;
     
-    private PokemonDescriptionObject descriptionObj;
-    private PokemonPhysicalObject physicalObj;
-    private API_Response_Pokemon pokedexResponse;
+    private final PokemonDescriptionObject descriptionObj;
+    private final PokemonPhysicalObject physicalObj;
+    private final API_Response_Pokemon pokedexResponse;
     
     private static final DecimalFormat df2 = new DecimalFormat("0.00");
     private URL url;
     
+    /**
+     * creates a new instance of Pokedex
+     */
     public Pokedex() {
         initComponents();
         pokemonDescriptionResponse = new PokemonResponseDescription();
@@ -68,18 +69,12 @@ public class Pokedex extends javax.swing.JPanel {
         description.setText(descriptionObj.getDescription(responseDescription));
         setPokemonSprite(responseGeneral);
         switch (responseGeneral.getTypes().length) {
-            case 1:
-                type.setText(responseGeneral.getTypes()[0].getType().getTypeName());
-                break;
-            case 2:
-                type.setText(responseGeneral.getTypes()[0].getType().getTypeName()
-                        + ", " + responseGeneral.getTypes()[1].getType().getTypeName());
-                break;
-            case 3:
-                type.setText(responseGeneral.getTypes()[0].getType().getTypeName() 
-                        + ", " + responseGeneral.getTypes()[1].getType().getTypeName()
-                        + ", " + responseGeneral.getTypes()[2].getType().getTypeName());
-                break;
+            case 1 -> type.setText(descriptionObj.getType(responseGeneral, 0));
+            case 2 -> type.setText(descriptionObj.getType(responseGeneral, 0)
+                        + ", " + descriptionObj.getType(responseGeneral, 1));
+            case 3 -> type.setText(descriptionObj.getType(responseGeneral, 0) 
+                        + ", " + descriptionObj.getType(responseGeneral, 1)
+                        + ", " + descriptionObj.getType(responseGeneral, 2));
         }
     }
         
@@ -88,6 +83,7 @@ public class Pokedex extends javax.swing.JPanel {
      * @param responseGeneral 
      */
     public void setPokemonSprite(PokemonResponseGeneral responseGeneral){
+        ImageIcon placeholder = new ImageIcon("src/main/resources/pokeball.png");
         String pokemonURL = descriptionObj.getSprite(responseGeneral);
         if (pokemonURL == null){
             pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
@@ -98,9 +94,9 @@ public class Pokedex extends javax.swing.JPanel {
                 ImageIcon icon = new ImageIcon(image);
                 pokemonSprite.setIcon(icon);
             } catch (MalformedURLException ex) {
-                Logger.getLogger(Day1.class.getName()).log(Level.SEVERE, null, ex);
+                pokemonSprite.setIcon(placeholder);
             } catch (IOException ex) {
-                Logger.getLogger(Day1.class.getName()).log(Level.SEVERE, null, ex);
+                pokemonSprite.setIcon(placeholder);            
             }
         }
     }
