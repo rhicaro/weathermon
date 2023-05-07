@@ -69,6 +69,7 @@ public class PokemonList extends javax.swing.JPanel {
      * @param pokemonTypes2 string of pokemon type
      */
     public void updatePanel(Response weatherResponse2, String[] pokemonTypes2){
+        types.setText("");
         pokemonTypeList.clear();
         weatherResponse = weatherResponse2;
         pokemonTypes = pokemonTypes2;
@@ -79,6 +80,13 @@ public class PokemonList extends javax.swing.JPanel {
         pokemonSprite.setIcon(new ImageIcon("src/main/resources/pokeball.png"));
         for (PokemonResponseName type: pokemonTypeList){
             setPokemonList(type, model);
+        }
+        switch (pokemonTypes.length) {
+            case 1 -> types.setText(pokemonTypes[0]);
+            case 2 -> types.setText(pokemonTypes[0] + ", " + pokemonTypes[1]);
+            case 3 -> types.setText(pokemonTypes[0] + ", " + pokemonTypes[1] + ", " + pokemonTypes[2]);
+            default -> {
+            }
         }
     }
 
@@ -166,6 +174,8 @@ public class PokemonList extends javax.swing.JPanel {
         weather = new javax.swing.JLabel();
         pokemonSprite = new javax.swing.JLabel();
         weatherSprite = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        types = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
@@ -189,6 +199,10 @@ public class PokemonList extends javax.swing.JPanel {
         pokemonSprite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokeball.png"))); // NOI18N
         pokemonSprite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
+        jLabel1.setText("Current Pokemon Types");
+
+        types.setText("Place Holder");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -201,14 +215,19 @@ public class PokemonList extends javax.swing.JPanel {
                         .addGap(45, 45, 45)
                         .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(weather)
-                            .addComponent(currentWeatherLabel))))
-                .addContainerGap(32, Short.MAX_VALUE))
+                            .addComponent(currentWeatherLabel)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(types))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +241,11 @@ public class PokemonList extends javax.swing.JPanel {
                         .addGap(7, 7, 7)
                         .addComponent(weatherSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pokemonSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(types))
                     .addComponent(pokemonListAll, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
@@ -264,9 +287,11 @@ public class PokemonList extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel currentWeatherLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> pokemonList;
     private javax.swing.JScrollPane pokemonListAll;
     private javax.swing.JLabel pokemonSprite;
+    private javax.swing.JLabel types;
     private javax.swing.JLabel weather;
     private javax.swing.JLabel weatherSprite;
     // End of variables declaration//GEN-END:variables
