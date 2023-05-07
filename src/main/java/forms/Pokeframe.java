@@ -274,7 +274,8 @@ public final class Pokeframe extends javax.swing.JFrame {
                 double cityLat = cityNameObj.getLat();
                 double cityLon = cityNameObj.getLon();
                 weatherResponse = weatherResponseObject.getResponse(cityLat, cityLon); //should now be accessible outside of the frame
-            } catch (java.lang.NullPointerException | ArrayIndexOutOfBoundsException |java.lang.NoSuchMethodError| NumberFormatException ex) {
+            } catch (java.lang.NullPointerException | ArrayIndexOutOfBoundsException |
+                    java.lang.NoSuchMethodError | NumberFormatException ex) {
                //Timer code from http://www.java2s.com/Tutorials/Java/Swing_How_to/Timer/Update_JLabel_with_Timer.htm 
                 cityform.setErrorMsg("Please Enter a Valid City Name");
                 new Timer(3000, (ActionEvent e) -> {
@@ -282,7 +283,6 @@ public final class Pokeframe extends javax.swing.JFrame {
                }).start();
                //End of timer code
             }
-     
             String weatherType1 = weatherObj.weatherCall(weatherResponse, 0);
             String weatherType2 = weatherObj.weatherCall(weatherResponse, 7);
             String weatherType3 = weatherObj.weatherCall(weatherResponse, 15);
@@ -429,26 +429,9 @@ public final class Pokeframe extends javax.swing.JFrame {
         System.out.println("java -jar target/Weathermon-1.0-SNAPSHOT-jar-with-dependencies.jar");
         System.out.println();
         System.out.println("Options:");
-        System.out.println("-help      Print this help message and exit");
+        System.out.println("-help/'Nothing      Print this help message and exit");
         return;
     }
-        
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Pokeframe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);\
-            return;
-        }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
