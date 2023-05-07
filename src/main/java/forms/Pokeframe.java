@@ -134,12 +134,12 @@ public final class Pokeframe extends javax.swing.JFrame {
             .addGroup(windowDisplayInfoLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(windowNameDisplay)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         windowDisplayInfoLayout.setVerticalGroup(
             windowDisplayInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, windowDisplayInfoLayout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .addComponent(windowNameDisplay)
                 .addGap(28, 28, 28))
         );
@@ -315,6 +315,7 @@ public final class Pokeframe extends javax.swing.JFrame {
             changeState(stateNumber);
         } else if (stateNumber == 6){
             stateNumber = 7;
+            change2Imperial();
             String selectedPokemon = pokemonlist.getSelectedPokemon();
             pokedex.updatePanel(selectedPokemon);
             changeState(stateNumber);
@@ -350,11 +351,13 @@ public final class Pokeframe extends javax.swing.JFrame {
                         
         if (stateNumber == 0){
             windowNameDisplay.setText("Enter City");
+            tempChangeBtn.setVisible(false);
             enterBtn.setText("Enter");
             cityform.setVisible(true);
         }
         if (stateNumber == 1){
             windowNameDisplay.setText("   Day 1");
+            tempChangeBtn.setVisible(true);
             enterBtn.setText("Change Location");
             day1.setVisible(true);
         }
@@ -377,11 +380,13 @@ public final class Pokeframe extends javax.swing.JFrame {
         }
         if (stateNumber == 6){
             windowNameDisplay.setText("Pokémon");
+            tempChangeBtn.setVisible(false);
             enterBtn.setText("View Selected Pokemon");
             pokemonlist.setVisible(true);
         }
         if (stateNumber == 7){
             windowNameDisplay.setText(" Pokédex");
+            tempChangeBtn.setVisible(true);
             enterBtn.setText("Return to Pokemon List");
             pokedex.setVisible(true);
         }
@@ -417,6 +422,17 @@ public final class Pokeframe extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        if (args.length > 0 && args[0].equals("-help")) {
+        // Print help information
+        System.out.println("||Help Information||");
+        System.out.println("How to run the project:");
+        System.out.println("java -jar target/Weathermon-1.0-SNAPSHOT-jar-with-dependencies.jar");
+        System.out.println();
+        System.out.println("Options:");
+        System.out.println("-help/'Nothing'      Print this help message and exit");
+        return;
+    }
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

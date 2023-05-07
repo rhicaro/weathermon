@@ -1,31 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mycompany.visual2final</groupId>
-    <artifactId>Visual2Final</artifactId>
+    <groupId>src</groupId>
+    <artifactId>Weathermon</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>com.mycompany.visual2final.Visual2Final</exec.mainClass>
+        <exec.mainClass>forms.Pokeframe</exec.mainClass>
     </properties>
-    <description>Make sure to add and implement:
-- abstract class
-- interface
-- subclass
-
-A Pokemon themed weather application that works in tandem with the
-game pokemon go. Besides providing that same features of weather
-applications which include telling the temperature of the day and what to expect
-in the upcoming days, this applicaiton will include what kind of pokemon one should
-be able to expect during said types of weather. Also a pokedex of chosen pokemon
-would be provided to give the user a more authentic experience with the game
-as well as a system where one can put see and manage and inventory of said pokemon.
-
-
-</description>
+        <dependencies>
+                <dependency>
+                    <groupId>com.google.code.gson</groupId>
+                    <artifactId>gson</artifactId>
+                    <version>2.10.1</version>
+                        <type>jar</type>
+                </dependency>
+        </dependencies>
     <build>
             <resources>
                 <resource>
@@ -35,19 +28,45 @@ as well as a system where one can put see and manage and inventory of said pokem
                     </includes>
                 </resource>
             </resources>
-        </build>
-    <name>WeatherMon</name>
-    <dependencies>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.6</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.netbeans.external</groupId>
-            <artifactId>AbsoluteLayout</artifactId>
-            <version>RELEASE140</version>
-        </dependency>
-    </dependencies>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>forms.Pokeframe</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            
+            
+                <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>forms.Pokeframe</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
