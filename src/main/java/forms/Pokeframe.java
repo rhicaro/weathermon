@@ -429,7 +429,7 @@ public final class Pokeframe extends javax.swing.JFrame {
         System.out.println("java -jar target/Weathermon-1.0-SNAPSHOT-jar-with-dependencies.jar");
         System.out.println();
         System.out.println("Options:");
-        System.out.println("-help/'Nothing'      Print this help message and exit");
+        System.out.println("-help      Print this help message and exit");
         return;
     }
         
