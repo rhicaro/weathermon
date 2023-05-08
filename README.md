@@ -1,4 +1,4 @@
-#Weatheron 2.0
+#Weathermon 2.0
 
 WeatherMon is a Pokemon themed weather application that seeks to tie in aspects from the popular mobile game Pokemon Go with the functionality
 of a typical weather app.
