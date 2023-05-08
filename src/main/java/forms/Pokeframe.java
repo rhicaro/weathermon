@@ -426,7 +426,8 @@ public final class Pokeframe extends javax.swing.JFrame {
         // Print help information
         System.out.println("||Help Information||");
         System.out.println("How to run the project:");
-        System.out.println("java -jar target/Weathermon-1.0-SNAPSHOT-jar-with-dependencies.jar");
+        System.out.println("1. Start the program");
+        System.out.println("2. Enter City and then view to Weather");
         System.out.println();
         System.out.println("Options:");
         System.out.println("-help/'Nothing      Print this help message and exit");
